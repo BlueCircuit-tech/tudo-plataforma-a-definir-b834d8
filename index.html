@@ -2057,6 +2057,386 @@
   </script>
 </section>
 
+    <section data-tela="gestao-de-fontes" class="hidden">
+      <div class="fade-in">
+        <div class="mb-8">
+          <div class="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h1 class="text-2xl font-display font-bold text-gray-900">Gestão de Fontes</h1>
+              <p class="text-gray-500 mt-1 text-sm">Cadastre e gerencie feeds RSS, sites de scraping e perfis sociais para coleta automática de notícias.</p>
+            </div>
+            <button onclick="gestao_de_fontes_abrirCadastro()" class="btn btn-primary flex items-center gap-2 active:scale-95">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              Adicionar Fonte
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4 mb-6">
+          <div class="card p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-marca-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.828 3.683l2.073 1.39a1 1 0 01.293.707V21h-10v-8.232A1 1 0 019 9.808l1.19-.92zm-3.72 3.232l.862-1.19A1 1 0 0110 9.808V4.5A1.5 1.5 0 0111.5 3h7A1.5 1.5 0 0120 4.5v7a1.5 1.5 0 01-1.5 1.5h-1.293l-2.073 1.39a4.5 4.5 0 01-7.284-1.53L8 8.808z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Fontes Ativas</p>
+              <p class="text-xl font-display font-bold text-gray-900" id="stat-ativas">8</p>
+            </div>
+          </div>
+          <div class="card p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Notícias Hoje</p>
+              <p class="text-xl font-display font-bold text-gray-900" id="stat-noticias">247</p>
+            </div>
+          </div>
+          <div class="card p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992h4.992m12.01 0h4.992v4.992M2.985 9.348h4.992M19.026 4.264l-3.478 3.478M6.975 19.644l-3.478 3.478M6.975 4.264l3.478 3.478"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Duplicatas</p>
+              <p class="text-xl font-display font-bold text-gray-900" id="stat-duplicatas">12</p>
+            </div>
+          </div>
+          <div class="card p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-rose-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 uppercase tracking-wide font-medium">Pausadas</p>
+              <p class="text-xl font-display font-bold text-gray-900" id="stat-pausadas">2</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-5 mb-6">
+          <div class="flex items-center gap-3 flex-wrap">
+            <div class="relative flex-1 min-w-[240px]">
+              <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="filtro-busca" oninput="gestao_de_fontes_filtrar()" placeholder="Buscar fonte por nome ou URL..." class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent">
+            </div>
+            <select id="filtro-tipo" onchange="gestao_de_fontes_filtrar()" class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white">
+              <option value="todos">Todos os tipos</option>
+              <option value="rss">Feed RSS</option>
+              <option value="scraping">Scraping</option>
+              <option value="social">Rede Social</option>
+              <option value="google">Google Notícias</option>
+            </select>
+            <select id="filtro-status" onchange="gestao_de_fontes_filtrar()" class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white">
+              <option value="todos">Todos os status</option>
+              <option value="ativo">Ativo</option>
+              <option value="pausado">Pausado</option>
+              <option value="erro">Com erro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-100">
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Fonte</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Tipo</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Última Atualização</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Notícias Coletadas</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Taxa Sucesso</th>
+                  <th class="text-right px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-fontes"></tbody>
+            </table>
+          </div>
+          <div id="estado-vazio" class="hidden py-16 text-center">
+            <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 0010.5 18.75a7.5 7.5 0 00-7.5-7.5A7.5 7.5 0 003.75 10.5m0 0L21 21"/></svg>
+            <p class="text-gray-500 text-sm">Nenhuma fonte encontrada com esses filtros.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const gestao_de_fontes_fontes = [
+        { id: 1, nome: 'G1 Rondônia', url: 'https://g1.globo.com/ro/rondonia/', tipo: 'rss', status: 'ativo', ultimaAtualizacao: '2026-01-15T08:32:00', noticiasColetadas: 45, taxaSucesso: 98, duplicatas: 2, icone: 'G1', cor: '#e8002d', frequencia: '15 min' },
+        { id: 2, nome: 'Notícias de Rondônia', url: 'https://www.noticiasderondonia.com.br', tipo: 'scraping', status: 'ativo', ultimaAtualizacao: '2026-01-15T08:15:00', noticiasColetadas: 38, taxaSucesso: 94, duplicatas: 3, icone: 'NR', cor: '#2563eb', frequencia: '30 min', seletorTitulo: 'h1.entry-title', seletorCorpo: 'div.content-body' },
+        { id: 3, nome: 'Diário da Amazônia', url: 'https://diariodaamazonia.com.br', tipo: 'scraping', status: 'ativo', ultimaAtualizacao: '2026-01-15T07:50:00', noticiasColetadas: 29, taxaSucesso: 91, duplicatas: 1, icone: 'DA', cor: '#16a34a', frequencia: '1 hora', seletorTitulo: 'h2.post-title', seletorCorpo: 'article.post-content' },
+        { id: 4, nome: 'Rondônia Notícias', url: 'https://rondonianoticias.com.br', tipo: 'rss', status: 'ativo', ultimaAtualizacao: '2026-01-15T08:45:00', noticiasColetadas: 52, taxaSucesso: 97, duplicatas: 4, icone: 'RN', cor: '#7c3aed', frequencia: '10 min' },
+        { id: 5, nome: 'Portal do Estado RO', url: 'https://rondonia.ro.gov.br', tipo: 'scraping', status: 'pausado', ultimaAtualizacao: '2026-01-14T18:00:00', noticiasColetadas: 18, taxaSucesso: 85, duplicatas: 0, icone: 'PE', cor: '#ea580c', frequencia: '2 horas', seletorTitulo: 'h1.titulo', seletorCorpo: 'div.noticia-texto' },
+        { id: 6, nome: 'Jornal do Norte', url: 'https://jornaldonorte.com.br', tipo: 'rss', status: 'ativo', ultimaAtualizacao: '2026-01-15T08:20:00', noticiasColetadas: 31, taxaSucesso: 96, duplicatas: 2, icone: 'JN', cor: '#0891b2', frequencia: '20 min' },
+        { id: 7, nome: 'Agência Google Notícias - RO', url: 'google-news:regiao=Rondonia', tipo: 'google', status: 'ativo', ultimaAtualizacao: '2026-01-15T08:40:00', noticiasColetadas: 64, taxaSucesso: 99, duplicatas: 7, icone: 'GN', cor: '#4285f4', frequencia: '30 min' },
+        { id: 8, nome: 'Amazonia Agora', url: 'https://amazoniaagora.com', tipo: 'rss', status: 'ativo', ultimaAtualizacao: '2026-01-15T07:30:00', noticiasColetadas: 22, taxaSucesso: 93, duplicatas: 1, icone: 'AA', cor: '#059669', frequencia: '1 hora' },
+        { id: 9, nome: 'Rondônia em Destaque', url: 'https://rondoniaemdestaque.com', tipo: 'social', status: 'erro', ultimaAtualizacao: '2026-01-14T22:10:00', noticiasColetadas: 8, taxaSucesso: 62, duplicatas: 0, icone: 'RD', cor: '#db2777', frequencia: '45 min' },
+        { id: 10, nome: 'Folha de Rondônia', url: 'https://folhaderondonia.com.br', tipo: 'rss', status: 'pausado', ultimaAtualizacao: '2026-01-13T10:00:00', noticiasColetadas: 0, taxaSucesso: 0, duplicatas: 0, icone: 'FR', cor: '#dc2626', frequencia: '30 min' }
+      ];
+
+      function gestao_de_fontes_init() {
+        gestao_de_fontes_renderizar();
+      }
+
+      function gestao_de_fontes_renderizar() {
+        const busca = document.getElementById('filtro-busca').value.toLowerCase();
+        const tipo = document.getElementById('filtro-tipo').value;
+        const status = document.getElementById('filtro-status').value;
+        const tbody = document.getElementById('tabela-fontes');
+        const vazio = document.getElementById('estado-vazio');
+
+        let filtradas = gestao_de_fontes_fontes.filter(f => {
+          const matchBusca = !busca || f.nome.toLowerCase().includes(busca) || f.url.toLowerCase().includes(busca);
+          const matchTipo = tipo === 'todos' || f.tipo === tipo;
+          const matchStatus = status === 'todos' || f.status === status;
+          return matchBusca && matchTipo && matchStatus;
+        });
+
+        if (filtradas.length === 0) {
+          tbody.innerHTML = '';
+          vazio.classList.remove('hidden');
+          return;
+        }
+        vazio.classList.add('hidden');
+
+        const tipoLabels = { rss: 'RSS', scraping: 'Scraping', social: 'Rede Social', google: 'Google Notícias' };
+        const tipoCores = { rss: 'bg-blue-100 text-blue-700', scraping: 'bg-purple-100 text-purple-700', social: 'bg-pink-100 text-pink-700', google: 'bg-sky-100 text-sky-700' };
+        const statusConfig = {
+          ativo: { label: 'Ativo', classe: 'bg-emerald-100 text-emerald-700' },
+          pausado: { label: 'Pausado', classe: 'bg-amber-100 text-amber-700' },
+          erro: { label: 'Erro', classe: 'bg-rose-100 text-rose-700' }
+        };
+
+        tbody.innerHTML = filtradas.map(f => {
+          const sc = statusConfig[f.status];
+          const data = new Date(f.ultimaAtualizacao);
+          const dataFmt = data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+          const taxaCor = f.taxaSucesso >= 95 ? 'text-emerald-600' : f.taxaSucesso >= 80 ? 'text-amber-600' : 'text-rose-600';
+          const pausarLabel = f.status === 'pausado' ? 'Reativar' : 'Pausar';
+          const pausarIcon = f.status === 'pausado'
+            ? '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/></svg>'
+            : '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/></svg>';
+
+          return `<tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer" onclick="gestao_de_fontes_detalhe(${f.id})">
+            <td class="px-5 py-3.5">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style="background-color:${f.cor}">${f.icone}</div>
+                <div class="min-w-0">
+                  <p class="font-semibold text-gray-900 truncate">${f.nome}</p>
+                  <p class="text-xs text-gray-400 truncate max-w-[260px]">${f.url}</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-3.5"><span class="badge ${tipoCores[f.tipo]}">${tipoLabels[f.tipo]}</span></td>
+            <td class="px-5 py-3.5"><span class="badge ${sc.classe}">${sc.label}</span></td>
+            <td class="px-5 py-3.5 text-gray-500 text-xs">${dataFmt}</td>
+            <td class="px-5 py-3.5 font-semibold text-gray-900">${f.noticiasColetadas}</td>
+            <td class="px-5 py-3.5">
+              <div class="flex items-center gap-2">
+                <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full ${f.taxaSucesso >= 95 ? 'bg-emerald-500' : f.taxaSucesso >= 80 ? 'bg-amber-500' : 'bg-rose-500'}" style="width:${f.taxaSucesso}%"></div>
+                </div>
+                <span class="text-xs font-semibold ${taxaCor}">${f.taxaSucesso}%</span>
+              </div>
+            </td>
+            <td class="px-5 py-3.5 text-right">
+              <div class="flex items-center justify-end gap-1" onclick="event.stopPropagation()">
+                <button onclick="gestao_de_fontes_toggleStatus(${f.id})" title="${pausarLabel}" class="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors">${pausarIcon}</button>
+                <button onclick="gestao_de_fontes_editar(${f.id})" title="Editar" class="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-marca-600 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zM12 18v-3m0 0l-2.25-2.25M12 15l2.25-2.25"/></svg>
+                </button>
+                <button onclick="gestao_de_fontes_verNoticias(${f.id})" title="Ver notícias" class="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-marca-600 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>`;
+        }).join('');
+      }
+
+      function gestao_de_fontes_filtrar() {
+        gestao_de_fontes_renderizar();
+      }
+
+      function gestao_de_fontes_detalhe(id) {
+        const f = gestao_de_fontes_fontes.find(x => x.id === id);
+        if (!f) return;
+        const sc = f.status === 'ativo' ? 'Ativo' : f.status === 'pausado' ? 'Pausado' : 'Com erro';
+        const scCor = f.status === 'ativo' ? 'bg-emerald-100 text-emerald-700' : f.status === 'pausado' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700';
+        const tipoLabels = { rss: 'Feed RSS', scraping: 'Scraping', social: 'Rede Social', google: 'Google Notícias' };
+        const dataUlt = new Date(f.ultimaAtualizacao).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        let regrasHtml = '';
+        if (f.tipo === 'scraping' && f.seletorTitulo) {
+          regrasHtml = `<div class="mt-4 p-4 bg-gray-50 rounded-lg"><h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Regras de Scraping</h4>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div><span class="text-gray-500">Seletor título:</span> <code class="bg-white px-1.5 py-0.5 rounded text-xs font-mono text-marca-700">${f.seletorTitulo}</code></div>
+              <div><span class="text-gray-500">Seletor corpo:</span> <code class="bg-white px-1.5 py-0.5 rounded text-xs font-mono text-marca-700">${f.seletorCorpo}</code></div>
+            </div></div>`;
+        }
+
+        let feedUrlHtml = '';
+        if (f.tipo === 'rss') {
+          feedUrlHtml = `<div class="mt-3"><span class="text-xs text-gray-500">URL do Feed:</span><div class="flex items-center gap-2 mt-1"><code class="bg-gray-50 px-2 py-1 rounded text-xs font-mono text-gray-700 flex-1 break-all">${f.url}</code><button onclick="gestao_de_fontes_copiarFeed('${f.url}')" class="text-xs text-marca-600 hover:text-marca-700 font-medium whitespace-nowrap">Copiar</button></div></div>`;
+        }
+
+        const html = `<div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg" style="background-color:${f.cor}">${f.icone}</div>
+            <div>
+              <h3 class="text-lg font-display font-bold text-gray-900">${f.nome}</h3>
+              <p class="text-sm text-gray-500">${f.url}</p>
+            </div>
+            <span class="badge ${scCor} ml-auto">${sc}</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-3 bg-gray-50 rounded-lg"><p class="text-xs text-gray-500">Tipo</p><p class="font-semibold text-gray-900 text-sm">${tipoLabels[f.tipo]}</p></div>
+            <div class="p-3 bg-gray-50 rounded-lg"><p class="text-xs text-gray-500">Frequência</p><p class="font-semibold text-gray-900 text-sm">${f.frequencia}</p></div>
+            <div class="p-3 bg-gray-50 rounded-lg"><p class="text-xs text-gray-500">Última Atualização</p><p class="font-semibold text-gray-900 text-sm">${dataUlt}</p></div>
+            <div class="p-3 bg-gray-50 rounded-lg"><p class="text-xs text-gray-500">Taxa de Sucesso</p><p class="font-semibold ${f.taxaSucesso >= 95 ? 'text-emerald-600' : 'text-amber-600'} text-sm">${f.taxaSucesso}%</p></div>
+            <div class="p-3 bg-gray-50 rounded-lg"><p class="text-xs text-gray-500">Notícias Coletadas</p><p class="font-semibold text-gray-900 text-sm">${f.noticiasColetadas}</p></div>
+            <div class="p-3 bg-gray-50 rounded-lg"><p class="text-xs text-gray-500">Duplicatas Detectadas</p><p class="font-semibold text-gray-900 text-sm">${f.duplicatas}</p></div>
+          </div>
+          ${feedUrlHtml}
+          ${regrasHtml}
+          <div class="flex items-center gap-2 pt-3 border-t border-gray-100">
+            <button onclick="gestao_de_fontes_toggleStatus(${f.id}); fecharModal();" class="btn ${f.status === 'ativo' ? 'btn-secondary' : 'btn-primary'} flex-1 text-sm py-2">${f.status === 'ativo' ? 'Pausar Fonte' : 'Reativar Fonte'}</button>
+            <button onclick="gestao_de_fontes_editar(${f.id}); fecharModal();" class="btn btn-outline flex-1 text-sm py-2">Editar Configuração</button>
+          </div>
+        </div>`;
+        abrirModal(html, 'Detalhes da Fonte');
+      }
+
+      function gestao_de_fontes_toggleStatus(id) {
+        const f = gestao_de_fontes_fontes.find(x => x.id === id);
+        if (!f) return;
+        f.status = f.status === 'ativo' ? 'pausado' : 'ativo';
+        if (f.status === 'pausado') { f.taxaSucesso = 0; f.noticiasColetadas = 0; }
+        gestao_de_fontes_renderizar();
+        gestao_de_fontes_atualizarStats();
+        toast(f.status === 'ativo' ? `${f.nome} reativada com sucesso.` : `${f.nome} pausada.`, 'ok');
+      }
+
+      function gestao_de_fontes_editar(id) {
+        const f = gestao_de_fontes_fontes.find(x => x.id === id);
+        if (!f) return;
+        mostrarTela('integracoes');
+      }
+
+      function gestao_de_fontes_verNoticias(id) {
+        const f = gestao_de_fontes_fontes.find(x => x.id === id);
+        if (!f) return;
+        mostrarTela('feed-de-noticias');
+        toast(`Exibindo notícias de ${f.nome}`, 'info');
+      }
+
+      function gestao_de_fontes_copiarFeed(url) {
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(() => toast('URL do feed copiada!', 'ok'));
+      }
+
+      function gestao_de_fontes_abrirCadastro() {
+        const html = `<div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Nome da Fonte</label>
+            <input type="text" id="cad-nome" placeholder="Ex: Portal Rondônia News" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">URL do Site</label>
+            <input type="url" id="cad-url" placeholder="https://exemplo.com" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Fonte</label>
+            <select id="cad-tipo" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white">
+              <option value="rss">Feed RSS</option>
+              <option value="scraping">Scraping (site sem RSS)</option>
+              <option value="social">Perfil de Rede Social</option>
+              <option value="google">Google Notícias</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Frequência de Atualização</label>
+            <select id="cad-freq" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white">
+              <option value="10 min">A cada 10 minutos</option>
+              <option value="15 min">A cada 15 minutos</option>
+              <option value="30 min">A cada 30 minutos</option>
+              <option value="1 hora">A cada 1 hora</option>
+              <option value="2 horas">A cada 2 horas</option>
+            </select>
+          </div>
+          <div id="cad-scraping" class="hidden space-y-3 p-4 bg-gray-50 rounded-lg">
+            <p class="text-xs font-semibold text-gray-500 uppercase">Regras de Scraping</p>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Seletor do Título</label>
+              <input type="text" id="cad-sel-titulo" placeholder="h1.entry-title" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 font-mono">
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Seletor do Corpo</label>
+              <input type="text" id="cad-sel-corpo" placeholder="div.content-body" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 font-mono">
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-3 border-t border-gray-100">
+            <button onclick="gestao_de_fontes_salvarCadastro()" class="btn btn-primary flex-1 text-sm py-2.5 active:scale-95">Salvar Fonte</button>
+            <button onclick="fecharModal()" class="btn btn-secondary flex-1 text-sm py-2.5">Cancelar</button>
+          </div>
+        </div>`;
+        abrirModal(html, 'Adicionar Nova Fonte');
+        const tipoSelect = document.getElementById('cad-tipo');
+        const scrapDiv = document.getElementById('cad-scraping');
+        tipoSelect.addEventListener('change', function() {
+          scrapDiv.classList.toggle('hidden', this.value !== 'scraping');
+        });
+      }
+
+      function gestao_de_fontes_salvarCadastro() {
+        const nome = document.getElementById('cad-nome').value.trim();
+        const url = document.getElementById('cad-url').value.trim();
+        const tipo = document.getElementById('cad-tipo').value;
+        const freq = document.getElementById('cad-freq').value;
+
+        if (!nome || !url) {
+          toast('Preencha o nome e a URL da fonte.', 'erro');
+          return;
+        }
+
+        const cores = ['#dc2626', '#2563eb', '#059669', '#7c3aed', '#db2777', '#0891b2', '#ea580c'];
+        const iniciais = nome.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        const nova = {
+          id: Date.now(),
+          nome, url, tipo, status: 'ativo',
+          ultimaAtualizacao: new Date().toISOString(),
+          noticiasColetadas: 0, taxaSucesso: 0, duplicatas: 0,
+          icone: iniciais, cor: cores[Math.floor(Math.random() * cores.length)],
+          frequencia: freq
+        };
+
+        if (tipo === 'scraping') {
+          nova.seletorTitulo = document.getElementById('cad-sel-titulo').value || 'h1';
+          nova.seletorCorpo = document.getElementById('cad-sel-corpo').value || 'div.content';
+        }
+
+        gestao_de_fontes_fontes.unshift(nova);
+        fecharModal();
+        gestao_de_fontes_renderizar();
+        gestao_de_fontes_atualizarStats();
+        toast(`Fonte "${nome}" adicionada com sucesso!`, 'ok');
+      }
+
+      function gestao_de_fontes_atualizarStats() {
+        const ativas = gestao_de_fontes_fontes.filter(f => f.status === 'ativo').length;
+        const pausadas = gestao_de_fontes_fontes.filter(f => f.status === 'pausado').length;
+        const totalNoticias = gestao_de_fontes_fontes.reduce((s, f) => s + f.noticiasColetadas, 0);
+        const totalDup = gestao_de_fontes_fontes.reduce((s, f) => s + f.duplicatas, 0);
+        const elAtivas = document.getElementById('stat-ativas');
+        const elNoticias = document.getElementById('stat-noticias');
+        const elDup = document.getElementById('stat-duplicatas');
+        const elPausadas = document.getElementById('stat-pausadas');
+        if (elAtivas) elAtivas.textContent = ativas;
+        if (elNoticias) elNoticias.textContent = totalNoticias;
+        if (elDup) elDup.textContent = totalDup;
+        if (elPausadas) elPausadas.textContent = pausadas;
+      }
+
+      gestao_de_fontes_init();
+    </script>
+
     <!-- TELAS -->
     </main>
   </div>
