@@ -266,7 +266,498 @@
 
     <!-- CONTEÚDO -->
     <main class="flex-1 p-6 max-w-[1400px]">
-      <!-- TELAS -->
+      <section data-tela="feed-de-noticias" class="hidden">
+  <div class="flex items-start gap-6">
+    <div class="flex-1 min-w-0">
+      <div class="flex items-end justify-between mb-6">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-gray-900">Feed de Notícias</h1>
+          <p class="text-gray-500 text-sm mt-1">Notícias agregadas de portais de Rondônia em tempo real</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="feed-contador-novas" class="inline-flex items-center gap-1.5 bg-marca-50 text-marca-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-marca-200">
+            <span class="w-2 h-2 bg-marca-500 rounded-full animate-pulse"></span>
+            3 novas
+          </span>
+          <button onclick="mostrarTela('editor-de-post')" class="btn btn-primary text-sm py-2 px-4 active:scale-95 transition-transform flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Novo Post
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-4 gap-4 mb-6">
+        <div class="card p-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-marca-50 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9a2 2 0 00-2 2v1"/></svg>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-gray-900" id="feed-ind-total">147</p>
+            <p class="text-xs text-gray-500">Notícias hoje</p>
+          </div>
+        </div>
+        <div class="card p-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-gray-900">89</p>
+            <p class="text-xs text-gray-500">Publicadas</p>
+          </div>
+        </div>
+        <div class="card p-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-gray-900">12</p>
+            <p class="text-xs text-gray-500">Pendentes</p>
+          </div>
+        </div>
+        <div class="card p-4 flex items-center gap-4">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-gray-900">24</p>
+            <p class="text-xs text-gray-500">Fontes ativas</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
+        <div class="p-4 border-b border-gray-100">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative flex-1 min-w-[240px]">
+              <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" id="feed-busca" placeholder="Buscar por cidade, tema ou fonte..." class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-400 transition-all" oninput="feed_de_noticias_buscar(this.value)">
+            </div>
+            <select id="feed-filtro-categoria" onchange="feed_de_noticias_filtrar()" class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-400 bg-white">
+              <option value="todas">Todas categorias</option>
+              <option value="politica">Política</option>
+              <option value="esportes">Esportes</option>
+              <option value="seguranca">Segurança</option>
+              <option value="economia">Economia</option>
+              <option value="saude">Saúde</option>
+              <option value="entretenimento">Entretenimento</option>
+            </select>
+            <select id="feed-filtro-cidade" onchange="feed_de_noticias_filtrar()" class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-400 bg-white">
+              <option value="todas">Todas cidades</option>
+              <option value="porto-velho">Porto Velho</option>
+              <option value="ji-parana">Ji-Paraná</option>
+              <option value="cacoal">Cacoal</option>
+              <option value="ariquemes">Ariquemes</option>
+              <option value="vilhena">Vilhena</option>
+              <option value="rolim-de-moura">Rolim de Moura</option>
+            </select>
+            <select id="feed-filtro-status" onchange="feed_de_noticias_filtrar()" class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-marca-500/30 focus:border-marca-400 bg-white">
+              <option value="todos">Todos status</option>
+              <option value="publicada">Publicada</option>
+              <option value="pendente">Pendente</option>
+              <option value="rejeitada">Rejeitada</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-sm text-gray-500" id="feed-resultados-texto">Exibindo <strong class="text-gray-700">8</strong> notícias</p>
+            <div class="flex gap-1">
+              <button onclick="feed_de_noticias_layout('grid')" id="feed-btn-grid" class="p-2 rounded-lg bg-marca-50 text-marca-600 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+              </button>
+              <button onclick="feed_de_noticias_layout('lista')" id="feed-btn-lista" class="p-2 rounded-lg text-gray-400 hover:bg-gray-50 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="feed-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          </div>
+          <div id="feed-vazio" class="hidden text-center py-16">
+            <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-gray-500 font-medium">Nenhuma notícia encontrada</p>
+            <p class="text-gray-400 text-sm mt-1">Tente ajustar os filtros ou a busca</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="w-72 flex-shrink-0 space-y-4 hidden xl:block">
+      <div class="card p-4">
+        <h3 class="font-display font-semibold text-sm text-gray-900 mb-3">Ações Rápidas</h3>
+        <div class="space-y-2">
+          <button onclick="mostrarTela('curadoria-de-noticias')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-marca-50 hover:text-marca-700 transition-colors group">
+            <div class="w-8 h-8 rounded-lg bg-marca-50 flex items-center justify-center group-hover:bg-marca-100 transition-colors">
+              <svg class="w-4 h-4 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span>Aprovar Publicação</span>
+            <span class="ml-auto badge badge-warning text-[10px]">12</span>
+          </button>
+          <button onclick="mostrarTela('editor-de-post')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-marca-50 hover:text-marca-700 transition-colors group">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            </div>
+            <span>Criar Post</span>
+          </button>
+          <button onclick="mostrarTela('agendamento')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-marca-50 hover:text-marca-700 transition-colors group">
+            <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+              <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <span>Agendamentos</span>
+            <span class="ml-auto badge badge-info text-[10px]">5</span>
+          </button>
+          <button onclick="mostrarTela('analytics')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-marca-50 hover:text-marca-700 transition-colors group">
+            <div class="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center group-hover:bg-teal-100 transition-colors">
+              <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <span>Relatórios</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card p-4">
+        <h3 class="font-display font-semibold text-sm text-gray-900 mb-3">Fontes Mais Ativas</h3>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">G1</div>
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-gray-800 truncate">G1 Rondônia</p>
+              <p class="text-xs text-gray-400">42 notícias hoje</p>
+            </div>
+            <div class="w-16 bg-gray-100 rounded-full h-1.5 ml-auto">
+              <div class="bg-marca-500 h-1.5 rounded-full" style="width:85%"></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">RP</div>
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-gray-800 truncate">Rondônia Paulista</p>
+              <p class="text-xs text-gray-400">38 notícias hoje</p>
+            </div>
+            <div class="w-16 bg-gray-100 rounded-full h-1.5 ml-auto">
+              <div class="bg-marca-500 h-1.5 rounded-full" style="width:72%"></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">DA</div>
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-gray-800 truncate">Diário da Amazônia</p>
+              <p class="text-xs text-gray-400">31 notícias hoje</p>
+            </div>
+            <div class="w-16 bg-gray-100 rounded-full h-1.5 ml-auto">
+              <div class="bg-marca-500 h-1.5 rounded-full" style="width:60%"></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">ND</div>
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-gray-800 truncate">Notícias de RO</p>
+              <p class="text-xs text-gray-400">25 notícias hoje</p>
+            </div>
+            <div class="w-16 bg-gray-100 rounded-full h-1.5 ml-auto">
+              <div class="bg-marca-500 h-1.5 rounded-full" style="width:48%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-4">
+        <h3 class="font-display font-semibold text-sm text-gray-900 mb-3">Cobertura por Cidade</h3>
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Porto Velho</span>
+            <span class="text-xs font-medium text-gray-800">54</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:90%"></div></div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Ji-Paraná</span>
+            <span class="text-xs font-medium text-gray-800">28</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:55%"></div></div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Cacoal</span>
+            <span class="text-xs font-medium text-gray-800">19</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:35%"></div></div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600">Outras</span>
+            <span class="text-xs font-medium text-gray-800">46</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-gray-400 h-1.5 rounded-full" style="width:70%"></div></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+(function(){
+  const noticias = [
+    {id:1, titulo:"Deputados aprovam orçamento de R$ 6,2 bilhões para RO em 2025", resumo:"Assembleia Legislativa aprovou na madrugada o projeto de lei orçamentária para o próximo exercício. Entre as prioridades estão saúde, educação e infraestrutura rodoviária.", fonte:"G1 Rondônia", cidade:"porto-velho", categoria:"politica", status:"publicada", hora:"2025-01-15T09:15:00", imagem:"politica", shares:234, corFonte:"from-red-500 to-red-700", iniciais:"G1"},
+    {id:2, titulo:"Ji-Paraná vence Vilhena e assume liderança do Campeonato Rondoniense", resumo:"O Ji-Paraná Futebol Clube bateu o Vilhena Esporte Club por 2 a 1 no estádio Municipal Antônio Abreu Neto e chega à liderança da competição.", fonte:"Rondônia Paulista", cidade:"ji-parana", categoria:"esportes", status:"publicada", hora:"2025-01-15T08:42:00", imagem:"esportes", shares:189, corFonte:"from-blue-500 to-blue-700", iniciais:"RP"},
+    {id:3, titulo:"Operação policial prende 8 suspeitos de tráfico em Porto Velho", resumo:"Ação integrada entre Polícia Civil e Militar resultou na prisão de oito pessoas suspeitas de envolvimento com o tráfico de drogas na zona leste da capital.", fonte:"Diário da Amazônia", cidade:"porto-velho", categoria:"seguranca", status:"publicada", hora:"2025-01-15T07:30:00", imagem:"seguranca", shares:412, corFonte:"from-green-500 to-green-700", iniciais:"DA"},
+    {id:4, titulo:"Governo anuncia novo programa de incentivo ao empreendedor em Ariquemes", resumo:"Secretaria de Desenvolvimento Econômico lança linha de crédito de até R$ 50 mil para pequenos negócios do município de Ariquemes e região.", fonte:"Notícias de RO", cidade:"ariquemes", categoria:"economia", status:"publicada", hora:"2025-01-15T10:05:00", imagem:"economia", shares:97, corFonte:"from-orange-500 to-orange-700", iniciais:"ND"},
+    {id:5, titulo:"Hospital de Base de Porto Velho amplia leitos de UTI neonatal", resumo:"Unidade de saúde passa a contar com mais 10 leitos de UTI neonatal após reforma de R$ 3,2 milhões concluída nesta semana.", fonte:"G1 Rondônia", cidade:"porto-velho", categoria:"saude", status:"publicada", hora:"2025-01-15T06:20:00", imagem:"saude", shares:156, corFonte:"from-red-500 to-red-700", iniciais:"G1"},
+    {id:6, titulo:"Prefeito de Cacoal anuncia festa de Carnaval 2025 com atrações nacionais", resumo:"A programação do Carnaval de Cacoal inclui shows de bandas de forró e axé. Evento acontece de 28 de fevereiro a 4 de março no Complexo Turístico.", fonte:"Rondônia Paulista", cidade:"cacoal", categoria:"entretenimento", status:"pendente", hora:"2025-01-15T11:00:00", imagem:"entretenimento", shares:78, corFonte:"from-blue-500 to-blue-700", iniciais:"RP"},
+    {id:7, titulo:"Prefeitura de Porto Velho abre concurso com 500 vagas para a educação", resumo:"Edital publicado no Diário Oficial oferece salários de até R$ 4,5 mil para professores e técnicos administrativos das redes municipal de ensino.", fonte:"Diário da Amazônia", cidade:"porto-velho", categoria:"politica", status:"pendente", hora:"2025-01-15T08:00:00", imagem:"politica", shares:356, corFonte:"from-green-500 to-green-700", iniciais:"DA"},
+    {id:8, titulo:"Veneza: cidade vira campeã estadual de handebol feminino sub-18", resoto:"A equipe feminina de handebol do colégio Veneza, de Ji-Paraná, conquistou o título estadual da categoria sub-18 em final disputada em Porto Velho.", fonte:"Notícias de RO", cidade:"ji-parana", categoria:"esportes", status:"publicada", hora:"2025-01-15T05:45:00", imagem:"esportes", shares:63, corFonte:"from-orange-500 to-orange-700", iniciais:"ND"},
+    {id:9, titulo:"Inep divulga resultado do Enem 2024; 12 mil alunos de RO participaram", resumo:"O Instituto Nacional de Estudos e Pesquisas Educacionais liberou os resultados individuais. Estudantes rondonienses têm média geral de 520 pontos.", fonte:"G1 Rondônia", cidade:"porto-velho", categoria:"educacao", status:"publicada", hora:"2025-01-14T18:30:00", imagem:"educacao", shares:287, corFonte:"from-red-500 to-red-700", iniciais:"G1"},
+    {id:10, titulo:"Rolim de Moura inaugura novo terminal rodoviário após 18 meses de obras", resumo:"Obra de R$ 12 milhões entregue à população promete melhorar o fluxo de passageiros e acessibilidade da cidade.", fonte:"Diário da Amazônia", cidade:"rolim-de-moura", categoria:"economia", status:"pendente", hora:"2025-01-14T14:15:00", imagem:"economia", shares:144, corFonte:"from-green-500 to-green-700", iniciais:"DA"}
+  ];
+
+  const gradientesCategoria = {
+    politica: "from-red-400 to-red-600",
+    esportes: "from-blue-400 to-blue-600",
+    seguranca: "from-gray-600 to-gray-800",
+    economia: "from-green-400 to-green-600",
+    saude: "from-pink-400 to-pink-600",
+    entretenimento: "from-purple-400 to-purple-600",
+    educacao: "from-teal-400 to-teal-600"
+  };
+
+  const rotulosCategoria = {
+    politica:"Política", esportes:"Esportes", seguranca:"Segurança",
+    economia:"Economia", saude:"Saúde", entretenimento:"Entretenimento", educacao:"Educação"
+  };
+
+  const badgeCores = {
+    publicada:"bg-green-50 text-green-700 border-green-200",
+    pendente:"bg-amber-50 text-amber-700 border-amber-200",
+    rejeitada:"bg-red-50 text-red-700 border-red-200"
+  };
+
+  const badgeRotulos = { publicada:"Publicada", pendente:"Pendente", rejeitada:"Rejeitada" };
+
+  const rotulosCidade = {
+    "porto-velho":"Porto Velho","ji-parana":"Ji-Paraná","cacoal":"Cacoal",
+    "ariquemes":"Ariquemes","vilhena":"Vilhena","rolim-de-moura":"Rolim de Moura"
+  };
+
+  function formatarTempo(iso) {
+    const d = new Date(iso);
+    const agora = new Date();
+    const diff = Math.floor((agora - d)/60000);
+    if(diff < 1) return "agora mesmo";
+    if(diff < 60) return diff + " min atrás";
+    const h = Math.floor(diff/60);
+    if(h < 24) return h + "h atrás";
+    return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"});
+  }
+
+  function formatarHoraCompleta(iso) {
+    return new Date(iso).toLocaleString("pt-BR",{day:"2-digit",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"});
+  }
+
+  function criarCardNoticia(n) {
+    const hora = formatarTempo(n.hora);
+    const badgeCls = badgeCores[n.status] || badgeCores.publicada;
+    const badgeLabel = badgeRotulos[n.status] || n.status;
+    const cidade = rotulosCidade[n.cidade] || n.cidade;
+    const catLabel = rotulosCategoria[n.categoria] || n.categoria;
+    return `<div class="card p-0 overflow-hidden group cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5" onclick="feed_de_noticias_abrirDetalhe(${n.id})">
+      <div class="h-36 bg-gradient-to-br ${n.imagem ? gradientesCategoria[n.categoria] : 'from-gray-300 to-gray-400'} relative flex items-center justify-center">
+        <div class="absolute inset-0 opacity-20" style="background-image:radial-gradient(circle at 2px 2px, white 1px, transparent 0);background-size:20px 20px;"></div>
+        <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+          <span class="text-white font-bold text-lg">${n.iniciais}</span>
+        </div>
+        <div class="absolute top-3 left-3">
+          <span class="badge ${badgeCls} text-[10px]">${badgeLabel}</span>
+        </div>
+        <div class="absolute top-3 right-3">
+          <span class="bg-black/30 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">${hora}</span>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-marca-600 bg-marca-50 px-2 py-0.5 rounded">${catLabel}</span>
+          <span class="text-[10px] text-gray-400 flex items-center gap-0.5">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243A8 8 0 1117.657 16.657z"/></svg>
+            ${cidade}
+          </span>
+        </div>
+        <h3 class="font-display font-semibold text-sm text-gray-900 leading-snug mb-2 group-hover:text-marca-700 transition-colors line-clamp-2">${n.titulo}</h3>
+        <p class="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-3">${n.resumo}</p>
+        <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+          <span class="text-[11px] text-gray-400 font-medium">${n.fonte}</span>
+          <span class="text-[11px] text-gray-400 flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.5 9 12c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5c0 .5.114.938.316 1.342m0 0a2.002 2.002 0 013.367 0m0 0C11.114 14.062 11 14.5 11 15c0 .828.448 1.5 1 1.5s1-.672 1-1.5c0-.5-.114-.938-.316-1.342m0 0a2.002 2.002 0 00-3.367 0"/></svg>
+            ${n.shares}
+          </span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function criarLinhaNoticia(n) {
+    const badgeCls = badgeCores[n.status] || badgeCores.publicada;
+    const badgeLabel = badgeRotulos[n.status] || n.status;
+    const cidade = rotulosCidade[n.cidade] || n.cidade;
+    const catLabel = rotulosCategoria[n.categoria] || n.categoria;
+    return `<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-50 last:border-0" onclick="feed_de_noticias_abrirDetalhe(${n.id})">
+      <div class="w-12 h-12 rounded-lg bg-gradient-to-br ${gradientesCategoria[n.categoria]} flex items-center justify-center flex-shrink-0">
+        <span class="text-white font-bold text-xs">${n.iniciais}</span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-0.5">
+          <span class="text-[10px] font-semibold text-marca-600 bg-marca-50 px-1.5 py-0.5 rounded">${catLabel}</span>
+          <span class="badge ${badgeCls} text-[9px]">${badgeLabel}</span>
+        </div>
+        <p class="text-sm font-medium text-gray-800 truncate">${n.titulo}</p>
+        <p class="text-[11px] text-gray-400">${n.fonte} · ${cidade} · ${formatarTempo(n.hora)}</p>
+      </div>
+      <span class="text-[11px] text-gray-400 flex items-center gap-0.5 flex-shrink-0">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.5 9 12c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5c0 .5.114.938.316 1.342m0 0a2.002 2.002 0 013.367 0m0 0C11.114 14.062 11 14.5 11 15c0 .828.448 1.5 1 1.5s1-.672 1-1.5c0-.5-.114-.938-.316-1.342m0 0a2.002 2.002 0 00-3.367 0"/></svg>
+        ${n.shares}
+      </span>
+    </div>`;
+  }
+
+  function abrirDetalheNoticia(n) {
+    const cidade = rotulosCidade[n.cidade] || n.cidade;
+    const catLabel = rotulosCategoria[n.categoria] || n.categoria;
+    const badgeCls = badgeCores[n.status] || badgeCores.publicada;
+    const badgeLabel = badgeRotulos[n.status] || n.status;
+    const html = `<div class="space-y-5">
+      <div class="h-48 rounded-lg bg-gradient-to-br ${gradientesCategoria[n.categoria]} relative overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 opacity-20" style="background-image:radial-gradient(circle at 2px 2px, white 1px, transparent 0);background-size:24px 24px;"></div>
+        <div class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+          <span class="text-white font-bold text-2xl">${n.iniciais}</span>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="badge ${badgeCls}">${badgeLabel}</span>
+        <span class="badge badge-marca">${catLabel}</span>
+        <span class="badge badge-gray">${cidade}</span>
+      </div>
+      <h2 class="font-display font-bold text-lg text-gray-900 leading-snug">${n.titulo}</h2>
+      <div class="flex items-center gap-4 text-xs text-gray-400">
+        <span class="font-medium text-gray-600">${n.fonte}</span>
+        <span>${formatarHoraCompleta(n.hora)}</span>
+        <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.5 9 12c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5c0 .5.114.938.316 1.342m0 0a2.002 2.002 0 013.367 0m0 0C11.114 14.062 11 14.5 11 15c0 .828.448 1.5 1 1.5s1-.672 1-1.5c0-.5-.114-.938-.316-1.342m0 0a2.002 2.002 0 00-3.367 0"/></svg> ${n.shares} compartilhamentos</span>
+      </div>
+      <p class="text-sm text-gray-600 leading-relaxed">${n.resumo}</p>
+      <p class="text-sm text-gray-600 leading-relaxed">A notícia completa contém mais detalhes sobre o evento, declarações de autoridades envolvidas, contexto histórico e análise de especialistas. O material está disponível para curadoria e publicação nas redes sociais conectadas.</p>
+      <div class="pt-4 border-t border-gray-100">
+        <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Galeria de Imagens</h4>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="aspect-video rounded-lg bg-gradient-to-br ${gradientesCategoria[n.categoria]} opacity-80 flex items-center justify-center"><span class="text-white text-xs font-medium">IMG_01</span></div>
+          <div class="aspect-video rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center"><span class="text-white text-xs font-medium">IMG_02</span></div>
+          <div class="aspect-video rounded-lg bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center"><span class="text-white text-xs font-medium">IMG_03</span></div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 pt-2">
+        <button onclick="feed_de_noticias_compartilhar(${n.id}); fecharModal();" class="btn btn-primary text-sm py-2 px-4 active:scale-95 transition-transform flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.5 9 12c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5c0 .5.114.938.316 1.342m0 0a2.002 2.002 0 013.367 0m0 0C11.114 14.062 11 14.5 11 15c0 .828.448 1.5 1 1.5s1-.672 1-1.5c0-.5-.114-.938-.316-1.342m0 0a2.002 2.002 0 00-3.367 0"/></svg>
+          Compartilhar
+        </button>
+        <button onclick="mostrarTela('agendamento'); fecharModal();" class="btn btn-outline text-sm py-2 px-4 active:scale-95 transition-transform flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Agendar Publicação
+        </button>
+        ${n.status === 'pendente' ? `<button onclick="feed_de_noticias_aprovar(${n.id}); fecharModal();" class="btn text-sm py-2 px-4 active:scale-95 transition-transform flex items-center gap-2 bg-green-600 text-white hover:bg-green-700">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          Aprovar
+        </button>` : ''}
+        ${n.status === 'pendente' ? `<button onclick="feed_de_noticias_rejeitar(${n.id}); fecharModal();" class="btn btn-outline text-sm py-2 px-4 active:scale-95 transition-transform flex items-center gap-2 !border-red-200 !text-red-600 hover:!bg-red-50">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          Rejeitar
+        </button>` : ''}
+      </div>
+    </div>`;
+    abrirModal(html, "Detalhes da Notícia");
+  }
+
+  window.feed_de_noticias_abrirDetalhe = function(id) {
+    const n = noticias.find(x => x.id === id);
+    if(n) abrirDetalheNoticia(n);
+  };
+
+  window.feed_de_noticias_compartilhar = function(id) {
+    toast("Post compartilhado com sucesso nas redes conectadas!", "ok");
+  };
+
+  window.feed_de_noticias_aprovar = function(id) {
+    const n = noticias.find(x => x.id === id);
+    if(n) { n.status = "publicada"; renderizar(); toast("Notícia aprovada e publicada!", "ok"); }
+  };
+
+  window.feed_de_noticias_rejeitar = function(id) {
+    const n = noticias.find(x => x.id === id);
+    if(n) { n.status = "rejeitada"; renderizar(); toast("Notícia rejeitada.", "info"); }
+  };
+
+  window.feed_de_noticias_buscar = function(termo) {
+    feed_de_noticias_filtrar();
+  };
+
+  window.feed_de_noticias_filtrar = function() {
+    renderizar();
+  };
+
+  window.feed_de_noticias_layout = function(tipo) {
+    const grid = document.getElementById("feed-grid");
+    const btnG = document.getElementById("feed-btn-grid");
+    const btnL = document.getElementById("feed-btn-lista");
+    if(tipo === "lista") {
+      grid.className = "space-y-0 divide-y divide-gray-50 border border-gray-200 rounded-xl overflow-hidden";
+      btnG.className = "p-2 rounded-lg text-gray-400 hover:bg-gray-50 transition-colors";
+      btnL.className = "p-2 rounded-lg bg-marca-50 text-marca-600 transition-colors";
+    } else {
+      grid.className = "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4";
+      btnG.className = "p-2 rounded-lg bg-marca-50 text-marca-600 transition-colors";
+      btnL.className = "p-2 rounded-lg text-gray-400 hover:bg-gray-50 transition-colors";
+    }
+    renderizar();
+  };
+
+  function getNoticiasFiltradas() {
+    const termo = (document.getElementById("feed-busca").value || "").toLowerCase().trim();
+    const cat = document.getElementById("feed-filtro-categoria").value;
+    const cid = document.getElementById("feed-filtro-cidade").value;
+    const sts = document.getElementById("feed-filtro-status").value;
+    return noticias.filter(n => {
+      if(termo) {
+        const busca = (n.titulo + " " + n.resumo + " " + n.fonte + " " + (rotulosCidade[n.cidade]||n.cidade)).toLowerCase();
+        if(!busca.includes(termo)) return false;
+      }
+      if(cat !== "todas" && n.categoria !== cat) return false;
+      if(cid !== "todas" && n.cidade !== cid) return false;
+      if(sts !== "todos" && n.status !== sts) return false;
+      return true;
+    });
+  }
+
+  function renderizar() {
+    const grid = document.getElementById("feed-grid");
+    const vazio = document.getElementById("feed-vazio");
+    const resultadosTexto = document.getElementById("feed-resultados-texto");
+    const isLista = grid.className.includes("divide-y");
+    const filtrados = getNoticiasFiltradas();
+    resultadosTexto.innerHTML = filtrados.length === noticias.length
+      ? `Exibindo <strong class="text-gray-700">${filtrados.length}</strong> notícias`
+      : `Exibindo <strong class="text-gray-700">${filtrados.length}</strong> de <strong class="text-gray-700">${noticias.length}</strong> notícias`;
+    if(filtrados.length === 0) {
+      grid.innerHTML = "";
+      vazio.classList.remove("hidden");
+    } else {
+      vazio.classList.add("hidden");
+      if(isLista) {
+        grid.innerHTML = filtrados.map(criarLinhaNoticia).join("");
+      } else {
+        grid.innerHTML = filtrados.map(criarCardNoticia).join("");
+      }
+    }
+    const pendentes = noticias.filter(n => n.status === "pendente").length;
+    document.getElementById("feed-contador-novas").innerHTML = pendentes > 0
+      ? `<span class="w-2 h-2 bg-marca-500 rounded-full animate-pulse"></span> ${pendentes} nova${pendentes > 1 ? 's' : ''}`
+      : `<span class="w-2 h-2 bg-green-500 rounded-full"></span> Nenhuma nova`;
+  }
+
+  window.feed_de_noticias_renderizar = renderizar;
+  renderizar();
+})();
+</script>
+
+    <!-- TELAS -->
     </main>
   </div>
 
