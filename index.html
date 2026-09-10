@@ -1168,6 +1168,366 @@
   </div>
 </section>
 
+    <section data-tela="painel-admin" class="hidden">
+      <div class="fade-in">
+        <!-- Cabeçalho -->
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-display text-2xl font-bold text-gray-900">Painel Administrativo</h1>
+            <p class="text-gray-500 text-sm mt-0.5">Visão geral em tempo real da operação <span id="dataAtual"></span></p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="painel_admin_atualizar()" class="btn bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Atualizar
+            </button>
+            <button onclick="mostrarTela('editor-de-post')" class="btn bg-marca-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 active:scale-95 transition-all hover:bg-marca-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Nova Publicação
+            </button>
+          </div>
+        </div>
+
+        <!-- Cards de Métricas -->
+        <div class="grid grid-cols-4 gap-4 mb-6">
+          <div class="card p-5 cursor-pointer" onclick="mostrarTela('feed-de-noticias')">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-marca-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9a2 2 0 00-2 2v1m-4 7h10"/></svg>
+              </div>
+              <span class="badge badge-verde text-xs">+12%</span>
+            </div>
+            <p class="text-2xl font-bold text-gray-900 font-display">147</p>
+            <p class="text-xs text-gray-500 mt-0.5">Notícias coletadas hoje</p>
+            <div class="mt-2 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-marca-500 h-1.5 rounded-full" style="width:78%"></div></div>
+          </div>
+          <div class="card p-5 cursor-pointer" onclick="mostrarTela('curadoria-de-noticias')">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-verde-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-verde-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+              </div>
+              <span class="badge badge-verde text-xs">+8%</span>
+            </div>
+            <p class="text-2xl font-bold text-gray-900 font-display">23</p>
+            <p class="text-xs text-gray-500 mt-0.5">Posts publicados hoje</p>
+            <div class="mt-2 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-verde-500 h-1.5 rounded-full" style="width:65%"></div></div>
+          </div>
+          <div class="card p-5 cursor-pointer" onclick="mostrarTela('analytics')">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              </div>
+              <span class="badge badge-verde text-xs">+23%</span>
+            </div>
+            <p class="text-2xl font-bold text-gray-900 font-display">4.892</p>
+            <p class="text-xs text-gray-500 mt-0.5">Engajamento total (curtidas, compartilhamentos, comentários)</p>
+            <div class="mt-2 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width:82%"></div></div>
+          </div>
+          <div class="card p-5 cursor-pointer" onclick="mostrarTela('gestao-de-fontes')">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-azul-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-azul-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+              </div>
+              <span class="badge badge-amarelo text-xs">2 offline</span>
+            </div>
+            <p class="text-2xl font-bold text-gray-900 font-display">18</p>
+            <p class="text-xs text-gray-500 mt-0.5">Fontes ativas</p>
+            <div class="mt-2 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-azul-500 h-1.5 rounded-full" style="width:90%"></div></div>
+          </div>
+        </div>
+
+        <!-- Gráficos e Mapa -->
+        <div class="grid grid-cols-12 gap-4 mb-6">
+          <!-- Gráfico de Linha -->
+          <div class="col-span-8 card p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-display font-semibold text-gray-900">Volume de Publicações e Engajamento</h3>
+                <p class="text-xs text-gray-500">Últimos 7 dias</p>
+              </div>
+              <div class="flex gap-3 text-xs">
+                <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-marca-500 inline-block rounded"></span> Publicações</span>
+                <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-verde-500 inline-block rounded"></span> Engajamento</span>
+              </div>
+            </div>
+            <svg id="graficoLinha" viewBox="0 0 680 200" class="w-full" style="max-height:200px">
+              <defs>
+                <linearGradient id="areaMarca" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity="0.15"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></linearGradient>
+                <linearGradient id="areaVerde" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity="0.1"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Mapa de Rondônia -->
+          <div class="col-span-4 card p-5">
+            <h3 class="font-display font-semibold text-gray-900 mb-1">Densidade de Notícias</h3>
+            <p class="text-xs text-gray-500 mb-3">Por cidade de Rondônia — hoje</p>
+            <svg viewBox="0 0 240 200" class="w-full mx-auto" style="max-height:180px">
+              <defs>
+                <radialGradient id="mapBg" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#f0fdfa"/><stop offset="100%" stop-color="#f8fafc"/></radialGradient>
+                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.08"/></filter>
+              </defs>
+              <rect width="240" height="200" rx="8" fill="url(#mapBg)"/>
+              <path d="M30,25 L75,18 L115,22 L155,15 L190,28 L210,55 L215,85 L200,115 L185,140 L200,165 L180,182 L140,185 L95,180 L55,175 L30,155 L22,130 L18,100 L22,70 L25,50 Z" fill="#ccfbf1" stroke="#99f6e4" stroke-width="1.5" filter="url(#shadow)"/>
+              <circle cx="42" cy="120" r="12" fill="#0d9488" opacity="0.85" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Porto Velho',89)"/><text x="42" y="138" text-anchor="middle" fill="#134e4a" font-size="7" font-weight="600">Porto Velho</text>
+              <circle cx="72" cy="62" r="7" fill="#14b8a6" opacity="0.8" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Ariquemes',34)"/><text x="72" y="76" text-anchor="middle" fill="#134e4a" font-size="6" font-weight="500">Ariquemes</text>
+              <circle cx="108" cy="108" r="9" fill="#0d9488" opacity="0.85" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Cacoal',52)"/><text x="108" y="126" text-anchor="middle" fill="#134e4a" font-size="7" font-weight="600">Cacoal</text>
+              <circle cx="142" cy="70" r="5" fill="#5eead4" opacity="0.8" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Jaru',18)"/><text x="142" y="82" text-anchor="middle" fill="#134e4a" font-size="6" font-weight="500">Jaru</text>
+              <circle cx="178" cy="105" r="7" fill="#14b8a6" opacity="0.8" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Ji-Paraná',41)"/><text x="178" y="120" text-anchor="middle" fill="#134e4a" font-size="7" font-weight="600">Ji-Paraná</text>
+              <circle cx="155" cy="155" r="6" fill="#5eead4" opacity="0.75" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Pimenta Bueno',22)"/><text x="155" y="168" text-anchor="middle" fill="#134e4a" font-size="6" font-weight="500">Pimenta</text>
+              <circle cx="90" cy="145" r="5" fill="#99f6e4" opacity="0.7" class="cursor-pointer hover:opacity-100 transition-opacity" onclick="painel_admin_cidade('Ouro Preto',14)"/><text x="90" y="157" text-anchor="middle" fill="#134e4a" font-size="5" font-weight="500">Ouro Preto</text>
+              <text x="120" y="12" text-anchor="middle" fill="#6b7280" font-size="7" font-weight="600">RONDÔNIA</text>
+            </svg>
+            <div class="flex items-center justify-center gap-4 mt-2 text-xs text-gray-500">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-marca-600 inline-block"></span> Alta (&gt;40)</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-marca-400 inline-block"></span> Média (20–40)</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-marca-200 inline-block"></span> Baixa (&lt;20)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico de Barras por Rede -->
+        <div class="col-span-12 grid grid-cols-12 gap-4 mb-6">
+          <div class="col-span-5 card p-5">
+            <h3 class="font-display font-semibold text-gray-900 mb-1">Publicações por Rede Social</h3>
+            <p class="text-xs text-gray-500 mb-4">Distribuição de hoje</p>
+            <svg id="graficoBarras" viewBox="0 0 400 180" class="w-full" style="max-height:180px">
+              <text x="0" y="170" fill="#9ca3af" font-size="8" text-anchor="middle">Insta</text>
+              <text x="57" y="170" fill="#9ca3af" font-size="8" text-anchor="middle">Face</text>
+              <text x="114" y="170" fill="#9ca3af" font-size="8" text-anchor="middle">X</text>
+              <text x="171" y="170" fill="#9ca3af" font-size="8" text-anchor="middle">LinkedIn</text>
+              <text x="228" y="170" fill="#9ca3af" font-size="8" text-anchor="middle">TikTok</text>
+              <text x="285" y="170" fill="#9ca3af" font-size="8" text-anchor="middle">Telegram</text>
+            </svg>
+          </div>
+
+          <!-- Top Fontes -->
+          <div class="col-span-7 card p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-display font-semibold text-gray-900">Top Fontes do Dia</h3>
+                <p class="text-xs text-gray-500">Ranking por volume de notícias coletadas</p>
+              </div>
+            </div>
+            <div class="space-y-3" id="topFontes"></div>
+          </div>
+        </div>
+
+        <!-- Tabela de Publicações -->
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-display font-semibold text-gray-900">Últimas Publicações</h3>
+              <p class="text-xs text-gray-500">Clique em uma linha para ver detalhes</p>
+            </div>
+            <div class="relative">
+              <input id="buscaPublicacoes" type="text" placeholder="Buscar publicação..."
+                class="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-marca-500 focus:border-transparent outline-none w-72"
+                oninput="painel_admin_filtrar(this.value)">
+              <svg class="w-4 h-4 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-100">
+                  <th class="text-left py-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Título</th>
+                  <th class="text-left py-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Fonte</th>
+                  <th class="text-left py-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Redes</th>
+                  <th class="text-left py-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="text-right py-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Engajamento</th>
+                  <th class="text-right py-3 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Horário</th>
+                  <th class="py-3 px-3"></th>
+                </tr>
+              </thead>
+              <tbody id="tabelaPublicacoes"></tbody>
+            </table>
+          </div>
+          <div id="vazioBusca" class="hidden text-center py-12">
+            <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-gray-500 text-sm">Nenhuma publicação encontrada</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+    (function() {
+      var publicacoes = [
+        { id: 1, titulo: "Nova ponte sobre o Rio Madeira é inaugurada em Porto Velho", fonte: "G1 Rondônia", redes: ["Instagram","Facebook","X"], status: "publicado", engajamento: 1234, horario: "2026-01-19T10:30:00", categoria: "Infraestrutura" },
+        { id: 2, titulo: "CPI do Desmatamento aprova relatório final em Cacoal", fonte: "Rondônia Agora", redes: ["Facebook","X","LinkedIn"], status: "publicado", engajamento: 892, horario: "2026-01-19T09:15:00", categoria: "Política" },
+        { id: 3, titulo: "Incêndio florestal atinge área de preservação no sul de RO", fonte: "Folha de Rondônia", redes: ["Instagram","X"], status: "erro", engajamento: 0, horario: "2026-01-19T08:45:00", categoria: "Meio Ambiente" },
+        { id: 4, titulo: "Prefeitura de Ji-Paraná lança programa de reciclagem", fonte: "Diário da Amazônia", redes: ["Instagram","Facebook"], status: "publicado", engajamento: 567, horario: "2026-01-19T08:00:00", categoria: "Meio Ambiente" },
+        { id: 5, titulo: "Governo anuncia investimento de R$ 200 milhões em saúde", fonte: "Rondoniaovivo", redes: ["Instagram","Facebook","X","LinkedIn"], status: "publicado", engajamento: 2341, horario: "2026-01-19T07:30:00", categoria: "Política" },
+        { id: 6, titulo: "Festival de Cinema de Rondônia recebe inscrições até sexta", fonte: "G1 Rondônia", redes: ["Instagram","Facebook"], status: "agendado", engajamento: 0, horario: "2026-01-19T12:00:00", categoria: "Cultura" },
+        { id: 7, titulo: "Operação contra crimes ambientais prende 8 no Vale do Guaporé", fonte: "Rondônia Agora", redes: ["X","LinkedIn"], status: "publicado", engajamento: 445, horario: "2026-01-18T18:20:00", categoria: "Segurança" },
+        { id: 8, titulo: "Universidade Federal de RO abre vestibular 2026 com 3.200 vagas", fonte: "Folha de Rondônia", redes: ["Instagram","Facebook","X"], status: "publicado", engajamento: 1876, horario: "2026-01-18T15:10:00", categoria: "Educação" },
+        { id: 9, titulo: "Caminhoneiros fazem paralisação na BR-364 em Pimenta Bueno", fonte: "Rondoniaovivo", redes: ["X"], status: "erro", engajamento: 0, horario: "2026-01-18T14:00:00", categoria: "Economia" },
+        { id: 10, titulo: "Nova usina solar entra em operação em Ariquemes", fonte: "G1 Rondônia", redes: ["Instagram","Facebook","LinkedIn"], status: "publicado", engagamento: 723, horario: "2026-01-18T11:30:00", categoria: "Economia" }
+      ];
+
+      function statusBadge(s) {
+        var map = { publicado: 'badge-verde', agendado: 'badge-amarelo', erro: 'badge-vermelho', rascunho: 'badge-cinza' };
+        var lbl = { publicado: 'Publicado', agendado: 'Agendado', erro: 'Erro', rascunho: 'Rascunho' };
+        return '<span class="badge ' + (map[s]||'badge-cinza') + '">' + (lbl[s]||s) + '</span>';
+      }
+
+      function renderTabela(lista) {
+        var tbody = document.getElementById('tabelaPublicacoes');
+        var vazio = document.getElementById('vazioBusca');
+        if (!lista.length) { tbody.innerHTML = ''; vazio.classList.remove('hidden'); return; }
+        vazio.classList.add('hidden');
+        tbody.innerHTML = lista.map(function(p) {
+          var d = new Date(p.horario);
+          var h = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+          var redes = p.redes.map(function(r) {
+            var icones = { Instagram:'📷', Facebook:'📘', X:'🐦', LinkedIn:'💼', TikTok:'🎵', Telegram:'✈️' };
+            return '<span class="text-xs bg-gray-100 rounded px-1.5 py-0.5" title="' + r + '">' + (icones[r]||'●') + ' ' + r + '</span>';
+          }).join(' ');
+          return '<tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer group" onclick="painel_admin_detalhe(' + p.id + ')">' +
+            '<td class="py-3 px-3"><p class="text-sm text-gray-900 font-medium group-hover:text-marca-600 transition-colors line-clamp-1">' + p.titulo + '</p><p class="text-xs text-gray-400 mt-0.5">' + p.categoria + '</p></td>' +
+            '<td class="py-3 px-3 text-gray-600 text-xs">' + p.fonte + '</td>' +
+            '<td class="py-3 px-3"><div class="flex flex-wrap gap-1">' + redes + '</div></td>' +
+            '<td class="py-3 px-3">' + statusBadge(p.status) + '</td>' +
+            '<td class="py-3 px-3 text-right font-medium ' + (p.engajamento > 0 ? 'text-gray-900' : 'text-gray-400') + '">' + (p.engagamento !== undefined ? p.engajamento.toLocaleString('pt-BR') : p.engajamento.toLocaleString('pt-BR')) + '</td>' +
+            '<td class="py-3 px-3 text-right text-gray-500 text-xs whitespace-nowrap">' + h + '</td>' +
+            '<td class="py-3 px-3 text-right"><svg class="w-4 h-4 text-gray-300 group-hover:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      window.painel_admin_filtrar = function(termo) {
+        var t = termo.toLowerCase().trim();
+        if (!t) { renderTabela(publicacoes); return; }
+        var filtrados = publicacoes.filter(function(p) {
+          return p.titulo.toLowerCase().indexOf(t) > -1 || p.fonte.toLowerCase().indexOf(t) > -1 || p.categoria.toLowerCase().indexOf(t) > -1;
+        });
+        renderTabela(filtrados);
+      };
+
+      window.painel_admin_detalhe = function(id) {
+        var p = publicacoes.find(function(x){ return x.id === id; });
+        if (!p) return;
+        var d = new Date(p.horario);
+        var data = d.toLocaleDateString('pt-BR') + ' às ' + d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+        var icones = { Instagram:'📷', Facebook:'📘', X:'🐦', LinkedIn:'💼', TikTok:'🎵', Telegram:'✈️' };
+        var html = '<div class="space-y-4">' +
+          '<div><p class="text-sm text-gray-500 mb-1">Título</p><p class="font-medium text-gray-900">' + p.titulo + '</p></div>' +
+          '<div class="grid grid-cols-2 gap-3">' +
+            '<div><p class="text-sm text-gray-500 mb-1">Fonte</p><p class="text-sm text-gray-900">' + p.fonte + '</p></div>' +
+            '<div><p class="text-sm text-gray-500 mb-1">Categoria</p><p class="text-sm text-gray-900">' + p.categoria + '</p></div>' +
+            '<div><p class="text-sm text-gray-500 mb-1">Status</p>' + statusBadge(p.status) + '</div>' +
+            '<div><p class="text-sm text-gray-500 mb-1">Publicado em</p><p class="text-sm text-gray-900">' + data + '</p></div>' +
+          '</div>' +
+          '<div><p class="text-sm text-gray-500 mb-2">Redes Sociais</p><div class="flex flex-wrap gap-2">' + p.redes.map(function(r){ return '<span class="badge badge-cinza">' + (icones[r]||'') + ' ' + r + '</span>'; }).join('') + '</div></div>' +
+          '<div><p class="text-sm text-gray-500 mb-1">Engajamento</p><p class="text-xl font-bold text-gray-900">' + p.engajamento.toLocaleString('pt-BR') + '</p></div>' +
+          '<div class="flex gap-2 pt-2">' +
+            (p.status === 'erro' ? '<button onclick="painel_admin_reenviar(' + p.id + '); fecharModal();" class="btn bg-verde-600 text-white px-4 py-2 rounded-lg text-sm flex-1 active:scale-95 transition-all">Reenviar Publicação</button>' : '') +
+            (p.status === 'agendado' ? '<button onclick="painel_admin_publicarAgora(' + p.id + '); fecharModal();" class="btn bg-marca-600 text-white px-4 py-2 rounded-lg text-sm flex-1 active:scale-95 transition-all">Publicar Agora</button>' : '') +
+            '<button onclick="mostrarTela(\'editor-de-post\'); fecharModal();" class="btn bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm flex-1 active:scale-95 transition-all">Editar</button>' +
+          '</div></div>';
+        abrirModal(html, 'Detalhes da Publicação');
+      };
+
+      window.painel_admin_reenviar = function(id) {
+        var p = publicacoes.find(function(x){ return x.id === id; });
+        if (p) { p.status = 'publicado'; p.engajamento = Math.floor(Math.random()*200); renderTabela(publicacoes); toast('Publicação reenviada com sucesso!', 'ok'); }
+      };
+
+      window.painel_admin_publicarAgora = function(id) {
+        var p = publicacoes.find(function(x){ return x.id === id; });
+        if (p) { p.status = 'publicado'; p.horario = new Date().toISOString(); renderTabela(publicacoes); toast('Publicação enviada!', 'ok'); }
+      };
+
+      window.painel_admin_cidade = function(cidade, qtd) {
+        var html = '<div class="text-center py-4"><div class="text-4xl mb-2">🏙️</div><h3 class="font-display text-lg font-bold text-gray-900">' + cidade + '</h3><p class="text-sm text-gray-500 mt-1">' + qtd + ' notícias coletadas hoje</p><p class="text-xs text-gray-400 mt-2">Clique para ver notícias desta cidade</p></div>';
+        abrirModal(html, 'Densidade de Notícias — ' + cidade);
+      };
+
+      window.painel_admin_atualizar = function() {
+        toast('Painel atualizado com sucesso!', 'ok');
+      };
+
+      function renderTopFontes() {
+        var fontes = [
+          { nome: 'G1 Rondônia', noticias: 38, cor: 'bg-marca-600' },
+          { nome: 'Rondoniaovivo', noticias: 31, cor: 'bg-marca-500' },
+          { nome: 'Folha de Rondônia', noticias: 27, cor: 'bg-marca-400' },
+          { nome: 'Rondônia Agora', noticias: 22, cor: 'bg-marca-300' },
+          { nome: 'Diário da Amazônia', noticias: 18, cor: 'bg-marca-200' }
+        ];
+        var mx = Math.max.apply(null, fontes.map(function(f){ return f.noticias; }));
+        var el = document.getElementById('topFontes');
+        if (el) el.innerHTML = fontes.map(function(f) {
+          return '<div class="flex items-center gap-3">' +
+            '<div class="w-8 h-8 rounded-lg bg-marca-50 flex items-center justify-center flex-shrink-0">' +
+              '<svg class="w-4 h-4 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>' +
+            '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center justify-between mb-1"><p class="text-sm font-medium text-gray-900 truncate">' + f.nome + '</p><span class="text-xs text-gray-500">' + f.noticias + '</span></div>' +
+              '<div class="w-full bg-gray-100 rounded-full h-2"><div class="' + f.cor + ' h-2 rounded-full transition-all duration-500" style="width:' + (f.noticias/mx*100) + '%"></div></div>' +
+            '</div></div>';
+        }).join('');
+      }
+
+      function desenharGraficoLinha() {
+        var dadosPub = [18, 25, 21, 30, 28, 35, 23];
+        var dadosEng = [820, 1200, 950, 1800, 1500, 2100, 1100];
+        var labels = ['13/01','14/01','15/01','16/01','17/01','18/01','19/01'];
+        var svg = document.getElementById('graficoLinha');
+        if (!svg) return;
+        var w = 680, h = 200, px = 40, py = 25, pw = 580, ph = 130;
+        var maxPub = Math.max.apply(null, dadosPub);
+        var maxEng = Math.max.apply(null, dadosEng);
+        var xs = labels.map(function(_,i){ return px + (i/(labels.length-1)) * pw; });
+        var pathPub = dadosPub.map(function(v,i){ var x=xs[i], y=py+ph-(v/maxPub)*ph; return (i===0?'M':'L')+x+','+y; }).join(' ');
+        var pathEng = dadosEng.map(function(v,i){ var x=xs[i], y=py+ph-(v/maxEng)*ph; return (i===0?'M':'L')+x+','+y; }).join(' ');
+        var areaPubPath = pathPub + ' L' + xs[xs.length-1] + ',' + (py+ph) + ' L' + xs[0] + ',' + (py+ph) + ' Z';
+        var areaEngPath = pathEng + ' L' + xs[xs.length-1] + ',' + (py+ph) + ' L' + xs[0] + ',' + (py+ph) + ' Z';
+        var extra = '<rect x="' + px + '" y="' + py + '" width="' + pw + '" height="' + ph + '" fill="none" stroke="#e5e7eb" stroke-width="1"/>' +
+          dadosPub.map(function(_,i){ return '<line x1="'+xs[i]+'" y1="'+py+'" x2="'+xs[i]+'" y2="'+(py+ph)+'" stroke="#f3f4f6" stroke-width="1"/>'; }).join('') +
+          '<text x="' + xs[0] + '" y="' + (py+ph+16) + '" text-anchor="middle" fill="#9ca3af" font-size="9">' + labels[0] + '</text>' +
+          '<text x="' + xs[3] + '" y="' + (py+ph+16) + '" text-anchor="middle" fill="#9ca3af" font-size="9">' + labels[3] + '</text>' +
+          '<text x="' + xs[6] + '" y="' + (py+ph+16) + '" text-anchor="middle" fill="#9ca3af" font-size="9">' + labels[6] + '</text>' +
+          dadosPub.map(function(v,i){ var x=xs[i], y=py+ph-(v/maxPub)*ph; return '<circle cx="'+x+'" cy="'+y+'" r="3" fill="#0d9488"/><text x="'+x+'" y="'+(y-8)+'" text-anchor="middle" fill="#0d9488" font-size="8">'+v+'</text>'; }).join('') +
+          dadosEng.map(function(v,i){ var x=xs[i], y=py+ph-(v/maxEng)*ph; return '<circle cx="'+x+'" cy="'+y+'" r="3" fill="#10b981"/><text x="'+x+'" y="'+(y+14)+'" text-anchor="middle" fill="#10b981" font-size="8">'+(v/1000).toFixed(1)+'k</text>'; }).join('') +
+          '<path d="' + areaPubPath + '" fill="url(#areaMarca)" stroke="none"/>' +
+          '<path d="' + areaEngPath + '" fill="url(#areaVerde)" stroke="none"/>' +
+          '<path d="' + pathPub + '" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<path d="' + pathEng + '" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round" stroke-linejoin="round"/>';
+        svg.innerHTML += extra;
+      }
+
+      function desenharGraficoBarras() {
+        var dados = [{label:'Insta',val:34},{label:'Face',val:28},{label:'X',val:19},{label:'LinkedIn',val:12},{label:'TikTok',val:8},{label:'Telegram',val:5}];
+        var mx = Math.max.apply(null, dados.map(function(d){return d.val;}));
+        var cores = ['#0d9488','#14b8a6','#0d9488','#14b8a6','#5eead4','#99f6e4'];
+        var svg = document.getElementById('graficoBarras');
+        if (!svg) return;
+        var bw = 30, gap = 8, totalW = dados.length * (bw + gap) - gap, sx = (400 - totalW) / 2, baseY = 155, maxH = 130;
+        var extra = dados.map(function(d,i) {
+          var h = (d.val/mx) * maxH, x = sx + i * (bw + gap), y = baseY - h;
+          return '<rect x="' + x + '" y="' + y + '" width="' + bw + '" height="' + h + '" rx="4" fill="' + cores[i] + '" class="cursor-pointer hover:brightness-110 transition-all"><title>' + d.label + ': ' + d.val + ' posts</title></rect>' +
+            '<text x="' + (x+bw/2) + '" y="' + (y-6) + '" text-anchor="middle" fill="#6b7280" font-size="9" font-weight="600">' + d.val + '</text>';
+        }).join('');
+        svg.innerHTML += extra;
+      }
+
+      window.painel_admin_init = function() {
+        document.getElementById('dataAtual').textContent = '• ' + new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+        renderTabela(publicacoes);
+        renderTopFontes();
+        desenharGraficoLinha();
+        desenharGraficoBarras();
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', painel_admin_init);
+      } else {
+        painel_admin_init();
+      }
+    })();
+    </script>
+
     <!-- TELAS -->
     </main>
   </div>
