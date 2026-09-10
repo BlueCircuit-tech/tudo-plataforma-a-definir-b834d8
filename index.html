@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RondôniaNews — Agregador e Distribuidor de Notícias</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            marca: {
+              50: '#f0faf4',
+              100: '#d8f3dc',
+              200: '#b7e4c7',
+              300: '#95d5b2',
+              400: '#74c69d',
+              500: '#52b788',
+              600: '#40916c',
+              700: '#2d6a4f',
+              800: '#1b4332',
+              900: '#0d2818',
+            },
+            destaque: {
+              50: '#fff9eb',
+              100: '#fff3c4',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            },
+          },
+          fontFamily: {
+            display: ['"DM Serif Display"', 'Georgia', 'serif'],
+            body: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'marca': '0 1px 3px rgba(27,67,50,0.08), 0 4px 12px rgba(27,67,50,0.06)',
+            'marca-md': '0 4px 12px rgba(27,67,50,0.10), 0 12px 32px rgba(27,67,50,0.08)',
+            'marca-lg': '0 8px 24px rgba(27,67,50,0.12), 0 20px 48px rgba(27,67,50,0.10)',
+          },
+          borderRadius: {
+            'marca': '0.5rem',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Source Sans 3', system-ui, sans-serif; background: #f8faf9; color: #1a1a2e; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #95d5b2; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #74c69d; }
+
+    :focus-visible { outline: 2px solid #52b788; outline-offset: 2px; border-radius: 4px; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    [data-tela]:not(.hidden) {
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.125rem 0.625rem; border-radius: 9999px; font-size: 0.75rem;
+      font-weight: 600; line-height: 1.5; letter-spacing: 0.01em;
+    }
+    .card {
+      background: #ffffff; border-radius: 0.625rem; box-shadow: 0 1px 3px rgba(27,67,50,0.07), 0 4px 12px rgba(27,67,50,0.05);
+      border: 1px solid #e8f0eb; transition: box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .card:hover { box-shadow: 0 4px 12px rgba(27,67,50,0.10), 0 12px 32px rgba(27,67,50,0.07); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.5rem 1.125rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;
+      cursor: pointer; border: none; transition: all 0.18s ease; font-family: inherit;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: #1b4332; color: #fff; }
+    .btn-primary:hover { background: #2d6a4f; }
+    .btn-outline { background: transparent; color: #1b4332; border: 1.5px solid #b7e4c7; }
+    .btn-outline:hover { background: #f0faf4; border-color: #52b788; }
+    .btn-danger { background: #dc2626; color: #fff; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-ghost { background: transparent; color: #555; }
+    .btn-ghost:hover { background: #f1f5f4; color: #1b4332; }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+    .btn-lg { padding: 0.625rem 1.5rem; font-size: 1rem; }
+
+    .nav-btn { position: relative; }
+    .nav-btn.ativo { background: #1b4332; color: #fff; }
+    .nav-btn.ativo::before {
+      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 3px; height: 60%; background: #fbbf24; border-radius: 0 2px 2px 0;
+    }
+
+    .sidebar-item { transition: background 0.15s ease, color 0.15s ease; }
+    .sidebar-item:hover:not(.ativo) { background: rgba(27,67,50,0.06); color: #1b4332; }
+
+    .toast-enter { animation: toastSlide 0.3s ease-out forwards; }
+    .toast-exit { animation: toastOut 0.25s ease-in forwards; }
+    @keyframes toastSlide {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes toastOut {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(40px); }
+    }
+
+    .modal-overlay {
+      background: rgba(11,30,20,0.55); backdrop-filter: blur(2px);
+      animation: modalBgIn 0.2s ease-out;
+    }
+    @keyframes modalBgIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-card {
+      animation: modalCardIn 0.25s ease-out;
+    }
+    @keyframes modalCardIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+    .tab-btn { transition: all 0.18s ease; }
+    .tab-btn.ativo-tab { border-bottom: 2px solid #1b4332; color: #1b4332; font-weight: 600; }
+    .tab-btn:not(.ativo-tab) { border-bottom: 2px solid transparent; color: #888; }
+    .tab-btn:hover:not(.ativo-tab) { color: #555; }
+
+    .table-row { transition: background 0.12s ease; }
+    .table-row:hover { background: #f0faf4; }
+
+    .stat-card { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .stat-card:hover { transform: translateY(-2px); }
+
+    .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body class="bg-marca-50/60 min-h-screen">
+
+  <!-- BARRA LATERAL -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 bg-white border-r border-marca-100 z-40 flex flex-col shadow-marca">
+    <!-- Logo -->
+    <div class="px-5 pt-5 pb-4 border-b border-marca-100">
+      <button onclick="mostrarTela('feed-de-noticias')" class="flex items-center gap-3 group" aria-label="Ir para Feed de Notícias">
+        <div class="w-10 h-10 rounded-lg bg-marca-800 flex items-center justify-center shadow-marca group-hover:shadow-marca-md transition-shadow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="2" width="18" height="20" rx="2" stroke="#fbbf24" stroke-width="1.8"/>
+            <line x1="7" y1="7" x2="17" y2="7" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="7" y1="11" x2="17" y2="11" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="7" y1="15" x2="13" y2="15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="3" fill="#fbbf24"/>
+            <path d="M17.2 18.3l0.6 0.6 1.2-1.2" stroke="#1b4332" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-display text-lg text-marca-800 leading-none">Rondônia</span><span class="font-display text-lg text-destaque-500 leading-none">News</span>
+          <span class="block text-[0.65rem] text-gray-400 font-body tracking-wide uppercase">Agregador & Distribuidor</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Navegação -->
+    <nav class="flex-1 overflow-y-auto py-3 px-2 space-y-5">
+      <div>
+        <p class="px-3 mb-1.5 text-[0.65rem] font-semibold text-gray-400 uppercase tracking-widest">Conteúdo</p>
+        <div class="space-y-0.5">
+          <button data-nav="feed-de-noticias" onclick="mostrarTela('feed-de-noticias')" class="sidebar-item ativo nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 9h16M9 4v16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Feed de Notícias
+          </button>
+          <button data-nav="curadoria-de-noticias" onclick="mostrarTela('curadoria-de-noticias')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke-linecap="round" stroke-linejoin="round"/><rect x="9" y="3" width="6" height="4" rx="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Curadoria de Notícias
+          </button>
+          <button data-nav="editor-de-post" onclick="mostrarTela('editor-de-post')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Editor de Post
+          </button>
+        </div>
+      </div>
+      <div>
+        <p class="px-3 mb-1.5 text-[0.65rem] font-semibold text-gray-400 uppercase tracking-widest">Publicação</p>
+        <div class="space-y-0.5">
+          <button data-nav="agendamento" onclick="mostrarTela('agendamento')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg>
+            Agendamento
+          </button>
+          <button data-nav="integracoes" onclick="mostrarTela('integracoes')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 7h7M7 8.5v7M17 8.5v7M8.5 17h7" stroke-linecap="round"/></svg>
+            Integrações
+          </button>
+        </div>
+      </div>
+      <div>
+        <p class="px-3 mb-1.5 text-[0.65rem] font-semibold text-gray-400 uppercase tracking-widest">Administração</p>
+        <div class="space-y-0.5">
+          <button data-nav="painel-admin" onclick="mostrarTela('painel-admin')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Painel Admin
+          </button>
+          <button data-nav="gestao-de-fontes" onclick="mostrarTela('gestao-de-fontes')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="18" r="2"/></svg>
+            Gestão de Fontes
+          </button>
+          <button data-nav="analytics" onclick="mostrarTela('analytics')" class="sidebar-item nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-marca text-sm font-medium text-gray-600">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 14l4-4 4 4 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Analytics
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Usuário -->
+    <div class="p-3 border-t border-marca-100">
+      <div class="flex items-center gap-3 px-2 py-2">
+        <div class="w-9 h-9 rounded-full bg-marca-700 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">MS</div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-marca-900 truncate">Marina Silva</p>
+          <p class="text-xs text-gray-400 truncate">Editora Chefe</p>
+        </div>
+        <button onclick="toast('Sessão encerrada com sucesso', 'ok');" class="ml-auto text-gray-400 hover:text-red-500 transition-colors" aria-label="Sair" title="Sair">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ÁREA PRINCIPAL -->
+  <div class="ml-64 min-h-screen flex flex-col">
+    <!-- BARRA SUPERIOR -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-marca-100">
+      <div class="flex items-center justify-between px-6 h-14">
+        <!-- Busca -->
+        <div class="flex-1 max-w-lg">
+          <div class="relative">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
+            <input type="text" placeholder="Buscar notícias, fontes, agendamentos…" class="w-full pl-9 pr-4 py-2 text-sm bg-marca-50/60 border border-marca-100 rounded-marca focus:bg-white focus:border-marca-400 focus:ring-1 focus:ring-marca-300 transition-all placeholder:text-gray-400" id="buscaGlobal">
+            <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-[0.65rem] text-gray-400 bg-white border border-gray-200 rounded px-1.5 py-0.5 font-mono">⌘K</kbd>
+          </div>
+        </div>
+        <!-- Ações -->
+        <div class="flex items-center gap-1 ml-4">
+          <button onclick="toast('Sem notificações novas', 'info')" class="relative p-2.5 rounded-marca hover:bg-marca-50 text-gray-500 hover:text-marca-700 transition-colors" aria-label="Notificações">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="notifCount" class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-red-500 text-white text-[0.65rem] font-bold rounded-full flex items-center justify-center leading-none">3</span>
+          </button>
+          <button class="p-2.5 rounded-marca hover:bg-marca-50 text-gray-500 hover:text-marca-700 transition-colors" aria-label="Ajuda">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke-linecap="round"/></svg>
+          </button>
+          <div class="w-8 h-8 rounded-full bg-marca-700 text-white flex items-center justify-center text-xs font-bold cursor-pointer ml-1" onclick="mostrarTela('painel-admin')">MS</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="flex-1 p-6 max-w-[1400px]">
+      <!-- TELAS -->
+    </main>
+  </div>
+
+  <!-- TOASTS -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-[999] flex flex-col gap-2.5 pointer-events-none" style="max-width:380px;"></div>
+
+  <!-- MODAL -->
+  <div id="modalOverlay" class="fixed inset-0 z-[998] hidden items-center justify-center modal-overlay" onclick="fecharModal(event)">
+    <div id="modalCard" class="modal-card bg-white rounded-xl shadow-marca-lg w-full max-w-lg max-h-[85vh] flex flex-col m-4" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <h3 id="modalTitle" class="font-display text-lg text-marca-900"></h3>
+        <button onclick="fecharModal()" class="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors" aria-label="Fechar">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div id="modalBody" class="flex-1 overflow-y-auto p-5"></div>
+      <div id="modalFooter" class="px-5 py-3 border-t border-gray-100 flex justify-end gap-2"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ============================================================
+       UTILITÁRIOS GLOBAIS
+       ============================================================ */
+
+    function brl(valor) {
+      return 'R$ ' + new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(valor);
+    }
+
+    function dataBR(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function agoraISO() {
+      const d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+
+    let toastTimeout = null;
+    function toast(mensagem, tipo) {
+      const container = document.getElementById('toastContainer');
+      const el = document.createElement('div');
+      const cores = {
+        ok: 'border-l-4 border-emerald-500 bg-emerald-50 text-emerald-800',
+        erro: 'border-l-4 border-red-500 bg-red-50 text-red-800',
+        info: 'border-l-4 border-destaque-500 bg-destaque-50 text-destaque-800',
+      };
+      const icones = {
+        ok: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        erro: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6" stroke-linecap="round"/></svg>',
+        info: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01" stroke-linecap="round"/></svg>',
+      };
+      el.className = `toast-enter pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-lg shadow-marca-md ${cores[tipo] || cores.info}`;
+      el.innerHTML = `${icones[tipo] || icones.info}<span class="text-sm font-medium">${mensagem}</span>`;
+      container.appendChild(el);
+      clearTimeout(toastTimeout);
+      setTimeout(() => {
+        el.classList.remove('toast-enter');
+        el.classList.add('toast-exit');
+        setTimeout(() => el.remove(), 260);
+      }, 3000);
+    }
+
+    function abrirModal(html, titulo) {
+      document.getElementById('modalTitle').textContent = titulo || '';
+      document.getElementById('modalBody').innerHTML = html;
+      const overlay = document.getElementById('modalOverlay');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+    }
+    function fecharModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      const overlay = document.getElementById('modalOverlay');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      document.getElementById('modalBody').innerHTML = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') fecharModal();
+    });
+
+    /* ============================================================
+       ROTEADOR
+       ============================================================ */
+    function mostrarTela(id) {
+      document.querySelectorAll('[data-tela]').forEach(function (s) {
+        s.classList.toggle('hidden', s.dataset.tela !== id);
+      });
+      document.querySelectorAll('[data-nav]').forEach(function (b) {
+        b.classList.toggle('ativo', b.dataset.nav === id);
+      });
+      window.scrollTo({ top: 0 });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      mostrarTela('feed-de-noticias');
+    });
+
+    /* ============================================================
+       DADOS EM MEMÓRIA (compartilhados pelas telas)
+       ============================================================ */
+    window.AppState = {
+      noticias: [
+        { id: 1, titulo: 'Governo de RO anuncia investimento de R$ 120 milhões em infraestrutura de Porto Velho', fonte: 'G1 Rondônia', categoria: 'Política', status: 'publicado', data: '2026-01-15', resumo: 'Obras incluem pavimentação de 25 km de vias no bairro Nova Porto Velho.', curtidas: 342, compartilhamentos: 89 },
+        { id: 2, titulo: 'Festa do Café reúne mais de 15 mil visitantes em Cacoal', fonte: 'Rondônia Ao Vivo', categoria: 'Cultura', status: 'publicado', data: '2026-01-14', resumo: 'Evento movimentou economia local com venda de mais de 8 toneladas de café.', curtidas: 210, compartilhamentos: 45 },
+        { id: 3, titulo: 'Sejus lança programa de reinserção social para presos em Ji-Paraná', fonte: 'Diário da Amazônia', categoria: 'Social', status: 'pendente', data: '2026-01-15', resumo: 'Projeto oferece cursos profissionalizantes para 200 reeducandos.', curtidas: 0, compartilhamentos: 0 },
+        { id: 4, titulo: 'BR-364 recebe sinalização digital em trecho entre Ariquemes e Jaru', fonte: 'DNIT', categoria: 'Infraestrutura', status: 'rascunho', data: '2026-01-13', resumo: 'Investimento de R$ 4,5 mi visa reduzir acidentes no corredor logístico.', curtidas: 0, compartilhamentos: 0 },
+        { id: 5, titulo: 'Unesc abre vestibular 2026 com 2.400 vagas em Rondônia', fonte: 'Folha de RO', categoria: 'Educação', status: 'publicado', data: '2026-01-12', resumo: 'Cursos de medicina e direito são os mais procurados na região Norte.', curtidas: 567, compartilhamentos: 134 },
+        { id: 6, titulo: 'Preço da gasolina sobe 4,2% nos postos de Porto Velho, aponta Procon', fonte: 'G1 Rondônia', categoria: 'Economia', status: 'publicado', data: '2026-01-15', resumo: 'Reajuste influenciado pela alta do dólar e custo logístico.', curtidas: 198, compartilhamentos: 67 },
+      ],
+      fontes: [
+        { id: 1, nome: 'G1 Rondônia', url: 'g1.globo.com/ro', tipo: 'Portal de Notícias', status: 'ativa', noticiasColetadas: 156, ultimaColeta: '2026-01-15T08:30:00' },
+        { id: 2, nome: 'Rondônia Ao Vivo', url: 'rondoniaaovivo.com', tipo: 'Portal de Notícias', status: 'ativa', noticiasColetadas: 98, ultimaColeta: '2026-01-15T07:45:00' },
+        { id: 3, nome: 'Diário da Amazônia', url: 'diariodaamazonia.com.br', tipo: 'Jornal Impresso Digital', status: 'ativa', noticiasColetadas: 72, ultimaColeta: '2026-01-15T06:00:00' },
+        { id: 4, nome: 'DNIT-RO', url: 'gov.br/dnit', tipo: 'Governo Federal', status: 'ativa', noticiasColetadas: 34, ultimaColeta: '2026-01-14T14:20:00' },
+        { id: 5, nome: 'Folha de RO', url: 'folhade ro.com.br', tipo: 'Jornal Regional', status: 'pausada', noticiasColetadas: 45, ultimaColeta: '2026-01-13T10:00:00' },
+        { id: 6, nome: 'Agência RO de Notícias', url: 'agenciaro.com', tipo: 'Agência Oficial', status: 'ativa', noticiasColetadas: 28, ultimaColeta: '2026-01-15T09:00:00' },
+      ],
+      agendamentos: [
+        { id: 1, titulo: 'Notícia: BR-364 sinalizada', data: '2026-01-16', hora: '08:00', plataformas: ['Facebook', 'Instagram', 'Twitter'], status: 'agendado' },
+        { id: 2, titulo: 'Notícia: Unesc vestibular', data: '2026-01-16', hora: '10:30', plataformas: ['Facebook', 'LinkedIn'], status: 'agendado' },
+        { id: 3, titulo: 'Dica: Segurança rodoviária', data: '2026-01-17', hora: '07:00', plataformas: ['Instagram', 'Twitter'], status: 'rascunho' },
+        { id: 4, titulo: 'Notícia: Gasolina sobe 4,2%', data: '2026-01-15', hora: '14:00', plataformas: ['Facebook', 'Instagram', 'Twitter', 'WhatsApp'], status: 'publicado' },
+      ],
+      integracoes: [
+        { id: 1, nome: 'Facebook', icone: 'f', cor: '#1877F2', conectado: true, postsHoje: 12, seguidores: '8.4k' },
+        { id: 2, nome: 'Instagram', icone: '📷', cor: '#E4405F', conectado: true, postsHoje: 8, seguidores: '12.1k' },
+        { id: 3, nome: 'Twitter / X', icone: '𝕏', cor: '#000000', conectado: true, postsHoje: 15, seguidores: '5.7k' },
+        { id: 4, nome: 'WhatsApp Business', icone: '💬', cor: '#25D366', conectado: true, postsHoje: 3, seguidores: '—' },
+        { id: 5, nome: 'LinkedIn', icone: 'in', cor: '#0A66C2', conectado: false, postsHoje: 0, seguidores: '—' },
+        { id: 6, nome: 'TikTok', icone: '🎵', cor: '#000000', conectado: false, postsHoje: 0, seguidores: '—' },
+      ],
+    };
+  </script>
+</body>
+</html>
