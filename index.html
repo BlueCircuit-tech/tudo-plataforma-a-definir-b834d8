@@ -757,6 +757,318 @@
 })();
 </script>
 
+    <section data-tela="curadoria-de-noticias">
+      <div class="animate-fade-in">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-display text-2xl font-bold text-gray-900">Curadoria de Notícias</h1>
+            <p class="text-gray-500 mt-1 text-sm">Revise, edite e publique notícias coletadas automaticamente</p>
+          </div>
+          <button onclick="mostrarTela('editor-de-post')" class="btn bg-marca-600 text-white hover:bg-marca-700 active:scale-95 transition-all px-4 py-2.5 rounded-lg flex items-center gap-2 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Nova Notícia
+          </button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4 mb-6">
+          <div class="card p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9a2 2 0 00-2 2v1"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Total Coletadas</p>
+              <p class="font-display font-bold text-lg text-gray-900">47</p>
+            </div>
+          </div>
+          <div class="card p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Pendentes</p>
+              <p class="font-display font-bold text-lg text-amber-600">12</p>
+            </div>
+          </div>
+          <div class="card p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Aprovadas</p>
+              <p class="font-display font-bold text-lg text-green-600">28</p>
+            </div>
+          </div>
+          <div class="card p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-marca-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Taxa de Aprovação</p>
+              <p class="font-display font-bold text-lg text-marca-600">78%</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-4 mb-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative flex-1 min-w-[200px]">
+              <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input id="curadoria-busca" type="text" placeholder="Buscar notícia..." class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" oninput="curadoria_de_noticias_filtrar()">
+            </div>
+            <select id="curadoria-categoria" class="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white" onchange="curadoria_de_noticias_filtrar()">
+              <option value="">Todas Categorias</option>
+              <option>Política</option><option>Economia</option><option>Saúde</option><option>Educação</option><option>Meio Ambiente</option><option>Segurança</option><option>Esportes</option><option>Cultura</option><option>Infraestrutura</option>
+            </select>
+            <select id="curadoria-cidade" class="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white" onchange="curadoria_de_noticias_filtrar()">
+              <option value="">Todas Cidades</option>
+              <option>Porto Velho</option><option>Ji-Paraná</option><option>Ariquemes</option><option>Cacoal</option><option>Vilhena</option><option>Rolim de Moura</option><option>Guajará-Mirim</option><option>Buritis</option><option>Ouro Preto do Oeste</option><option>Pimenta Bueno</option>
+            </select>
+            <select id="curadoria-periodo" class="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 bg-white" onchange="curadoria_de_noticias_filtrar()">
+              <option value="">Qualquer período</option>
+              <option value="7">Últimos 7 dias</option><option value="15">Últimos 15 dias</option><option value="30">Últimos 30 dias</option>
+            </select>
+            <button onclick="curadoria_de_noticias_limparFiltros()" class="text-sm text-gray-500 hover:text-marca-600 transition-colors px-3 py-2">Limpar</button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 mb-4 text-sm">
+          <button onclick="curadoria_de_noticias_setFiltroStatus('')" class="curadoria-status-tab font-medium pb-1 border-b-2 border-marca-600 text-marca-700 transition-all" data-status="">Todos <span class="ml-1 bg-marca-100 text-marca-700 px-1.5 py-0.5 rounded-full text-xs font-bold">47</span></button>
+          <button onclick="curadoria_de_noticias_setFiltroStatus('pendente')" class="curadoria-status-tab font-medium pb-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all" data-status="pendente">Pendentes <span class="ml-1 bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full text-xs font-bold">12</span></button>
+          <button onclick="curadoria_de_noticias_setFiltroStatus('aprovada')" class="curadoria-status-tab font-medium pb-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all" data-status="aprovada">Aprovadas <span class="ml-1 bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full text-xs font-bold">28</span></button>
+          <button onclick="curadoria_de_noticias_setFiltroStatus('rejeitada')" class="curadoria-status-tab font-medium pb-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all" data-status="rejeitada">Rejeitadas <span class="ml-1 bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full text-xs font-bold">4</span></button>
+          <button onclick="curadoria_de_noticias_setFiltroStatus('publicada')" class="curadoria-status-tab font-medium pb-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all" data-status="publicada">Publicadas <span class="ml-1 bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full text-xs font-bold">3</span></button>
+        </div>
+
+        <div id="curadoria-lista" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        </div>
+
+        <div id="curadoria-vazio" class="hidden text-center py-16">
+          <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <p class="text-gray-500 font-medium">Nenhuma notícia encontrada</p>
+          <p class="text-gray-400 text-sm mt-1">Tente ajustar os filtros de busca</p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const curadoria_de_noticias_noticias = [
+        { id: 1, titulo: 'Prefeitura de Porto Velho anuncia programa de coleta seletiva em 12 bairros', fonte: 'G1 Rondônia', cidade: 'Porto Velho', categoria: 'Meio Ambiente', data: '2026-01-15', status: 'pendente', relevancia: 85, thumbnail: 'eco', resumo: 'A Secretaria Municipal de Meio Ambiente iniciou o projeto "Rondônia Recicla" que atenderá aproximadamente 45 mil moradores nas zonas Leste e Sul da capital.', texto: 'A Prefeitura de Porto Velho, através da Secretaria Municipal de Meio Ambiente, deu início ao programa de coleta seletiva porta a porta nos bairros Caladinho, Cohab, Eldorado, Areal, São João Bosco, Três Marias, Caiari, Centro, Olaria, Nova Porto Velho, Lagoa e Cuniã.\n\nO projeto "Rondônia Recicla" conta com investimento de R$ 2,3 milhões e atenderá aproximadamente 45 mil moradores. Serão distribuídos 8 mil kits de separação de resíduos contendo sacolas diferenciadas para papel, plástico, vidro e orgânicos.\n\nA meta inicial é reduzir em 30% o volume de lixo enviado ao aterro sanitário municipal nos primeiros seis meses de operação.', hashtags: ['#PortoVelho', '#MeioAmbiente', '#ColetaSeletiva', '#Sustentabilidade'], legendaSugerida: 'Porto Velho avança na sustentabilidade! 🍃 O programa Rondônia Recicla vai atender 12 bairros e beneficiar 45 mil pessoas com coleta seletiva porta a porta.' },
+        { id: 2, titulo: 'Governo de RO investe R$ 50 milhões em ampliação da rede hospitalar estadual', fonte: 'Diário da Amazônia', cidade: 'Porto Velho', categoria: 'Saúde', data: '2026-01-14', status: 'aprovada', relevancia: 92, thumbnail: 'saude', resumo: 'Recursos serão destinados à construção de novos centros de especialidades médicas em Porto Velho, Ji-Paraná e Cacoal.', texto: 'O Governo de Rondônia anunciou investimento de R$ 50 milhões para ampliação da rede hospitalar estadual. Os recursos serão aplicados na construção de três novos Centros de Especialidades Médicas nas cidades de Porto Velho, Ji-Paraná e Cacoal.\n\nCada unidade contará com 20 consultórios, centro cirúrgico com 3 salas, laboratório de análises clínicas e centro de imagem (raio-X, ultrassom e tomografia). A previsão é que as obras comecem em março de 2026 e as unidades entrem em funcionamento até dezembro.\n\nAlém disso, o programa prevê a contratação de 180 profissionais de saúde, incluindo médicos, enfermeiros e técnicos.', hashtags: ['#SaudeRO', '#GovernoRO', '#Investimento', '#Hospital'], legendaSugerida: 'Saudável investimento! 🏥 R$ 50 milhões para ampliar a rede hospitalar de RO com 3 novos centros de especialidades.' },
+        { id: 3, titulo: 'Economia de Ji-Paraná cresce 8% no primeiro trimestre, impulsionada por agro e comércio', fonte: 'Folha de Rondônia', cidade: 'Ji-Paraná', categoria: 'Economia', data: '2026-01-13', status: 'pendente', relevancia: 78, thumbnail: 'economia', resumo: 'Setor de serviços foi o destaque com crescimento de 12%, seguido pelo agronegócio com 7% de expansão.', texto: 'O Produto Interno Bruto (PIB) de Ji-Paraná registrou crescimento de 8% no primeiro trimestre de 2026, impulsionado principalmente pelo setor de serviços e pelo agronegócio.\n\nO comércio local registrou aumento de vendas de 15% em relação ao mesmo período do ano anterior, segundo dados da Associação Comercial e Industrial de Ji-Paraná (ACIJ).\n\nO setor de serviços foi o destaque com crescimento de 12%, seguido pelo agronegócio com 7% de expansão. A indústria de transformação manteve-se estável.', hashtags: ['#JiParana', '#Economia', '#Crescimento', '#Agronegocio'], legendaSugerida: 'Ji-Paraná no azul! 📈 Economia cresce 8% no primeiro trimestre, puxada por serviços e agronegócio. 🚜' },
+        { id: 4, titulo: 'Festival Internacional de Cinema da Amazônia abre inscrições para edição 2026', fonte: 'Portal Amazônia', cidade: 'Vilhena', categoria: 'Cultura', data: '2026-01-12', status: 'aprovada', relevancia: 70, thumbnail: 'cultura', resumo: 'Evento receberá filmes de até 90 minutos nas categorias ficção, documentário e animação até 15 de março.', texto: 'O Festival Internacional de Cinema da Amazônia (FICA) abriu as inscrições para sua 14ª edição, que acontecerá entre 21 e 27 de junho de 2026 em Vilhena, Rondônia.\n\nPodem se inscrever curtas e longas-metragens de até 90 minutos nas categorias ficção, documentário, animação e experimental. O prazo vai até 15 de março e a participação é gratuita.\n\nNa edição de 2025, o festival recebeu mais de 400 inscrições de 18 países. A premiação total soma R$ 80 mil, incluindo troféu e distribuição garantida em plataformas de streaming.', hashtags: ['#FICA2026', '#Cinema', '#Vilhena', '#CulturaAmazonica'], legendaSugerida: '🎬 Chamada aberta! FICA 2026 recebe inscrições de filmes de até 90 min. R$ 80 mil em premiação. 📧 Inscrições até 15/03!' },
+        { id: 5, titulo: 'Operação contra garimpo ilegal apreende R$ 1,2 milhão em equipamentos na BR-429', fonte: 'Jornal Extra de Rondônia', cidade: 'Guajará-Mirim', categoria: 'Meio Ambiente', data: '2026-01-11', status: 'publicada', relevancia: 95, thumbnail: 'meioambiente', resumo: 'Ação conjunta do IBAMA, PF e PRF flagrou 8 garimpos clandestinos na região da Ponte do Rio Mamoré.', texto: 'Uma operação de combate ao garimpo ilegal realizada pela Polícia Federal, IBAMA e PRF resultou na apreensão de R$ 1,2 milhão em equipamentos na região de Guajará-Mirim, na BR-429.\n\nA ação flagrou 8 garimpos clandestinos atuando na região da Ponte do Rio Mamoré. Foram apreendidos 12 retroescavadeiras, 4 dragas hidráulicas, 8 geradores de energia e 3 caminhões utilizados no transporte de minério.\n\nAo todo, 17 pessoas foram autuadas. Os responsáveis pelos garimpos responderão por crimes ambientais com pena de até 5 anos de reclusão.', hashtags: ['#MeioAmbiente', '#GarimpoIlegal', '#GuajaraMirim', '#Operacao'], legendaSugerida: '🚨 Ação contra garimpo ilegal! R$ 1,2 milhões em equipamentos apreendidos e 17 pessoas autuadas em Guajará-Mirim.' },
+        { id: 6, titulo: 'Governador anuncia construção de 5 novas escolas de tempo integral em Cacoal', fonte: 'Rondônia Notícias', cidade: 'Cacoal', categoria: 'Educação', data: '2026-01-10', status: 'rejeitada', relevancia: 55, thumbnail: 'educacao', resumo: 'Anúncio feito durante inauguração de escola no bairro Vista Alegre, que atenderá 800 alunos.', texto: 'O Governador de Rondônia anunciou a construção de cinco novas escolas de tempo integral no município de Cacoal durante cerimônia de inauguração da Escola Estadual Vista Alegre.\n\nCada escola terá capacidade para 800 alunos e contará com quadra poliesportiva, laboratórios de ciências e informática, biblioteca, auditório e refeitório. As previsões de entrega variam entre o segundo semestre de 2026 e o primeiro de 2027.\n\nO investimento total no projeto é de R$ 35 milhões, com recursos do Fundo Nacional de Desenvolvimento da Educação.', hashtags: ['#Educacao', '#Cacoal', '#Escolas', '#TempoIntegral'], legendaSugerida: '📚 5 novas escolas de tempo integral em Cacoal! Investimento de R$ 35 milhões ampliará vagas para 4 mil alunos.' },
+        { id: 7, titulo: 'Nova ponte sobre o Rio Madeira entra em fase final de construção em Porto Velho', fonte: 'G1 Rondônia', cidade: 'Porto Velho', categoria: 'Infraestrutura', data: '2026-01-09', status: 'pendente', relevancia: 88, thumbnail: 'infra', resumo: 'Obra de R$ 120 milhões ligará os bairros Nova Porto Velho e Lagoa, com previsão de conclusão para agosto.', texto: 'A obra da nova ponte sobre o Rio Madeira, que ligará os bairros Nova Porto Velho e Lagoa, entrou em sua fase final de construção, com 87% das obras concluídas.\n\nCom 780 metros de extensão e duas faixas por sentido, a ponte terá também faixa exclusiva para ciclistas e pedestres. O investimento total é de R$ 120 milhões.\n\nA previsão de entrega é agosto de 2026. A ponte vai desafogar o trânsito na região e encurtar o trajeto entre as duas áreas em até 20 minutos.', hashtags: ['#PortoVelho', '#Infraestrutura', '#Ponte', '#RioMadeira'], legendaSugerida: '🌉 Nova ponte sobre o Rio Madeira a caminho! 87% concluída, entrega em agosto. Obra de R$ 120 milhões vai desafogar o trânsito em Porto Velho.' },
+        { id: 8, titulo: 'Mercado financeiro projeta crescimento de 3,5% para Rondônia em 2026', fonte: 'Diário da Amazônia', cidade: 'Porto Velho', categoria: 'Economia', data: '2026-01-08', status: 'aprovada', relevancia: 75, thumbnail: 'economia', resumo: 'Projeção leva em conta recuperação do preço da soja e expansão do comércio.', texto: 'O mercado financeiro nacional projeta crescimento de 3,5% para a economia de Rondônia em 2026, segundo boletim do Banco Central divulgado na última semana.\n\nAnalistas destacam a recuperação do preço da soja no mercado internacional e a expansão do comércio varejista como fatores principais para o otimismo.\n\nRondônia teve crescimento de 4,2% em 2025, acima da média nacional de 2,1%. O Estado vem se consolidando como um dos que mais crescem na região Norte.', hashtags: ['#Economia', '#Rondonia', '#Crescimento', '#MercadoFinanceiro'], legendaSugerida: '📊 Perspectivas positivas! Mercado projeta 3,5% de crescimento para Rondônia em 2026. Soja e comércio puxam o resultado.' },
+        { id: 9, titulo: 'Corrida de São Sebastião reúne mais de 3 mil participantes em Ariquemes', fonte: 'Folha de Rondônia', cidade: 'Ariquemes', categoria: 'Esportes', data: '2026-01-07', status: 'publicada', relevancia: 62, thumbnail: 'esportes', resumo: 'Evento faz parte das comemorações do aniversário da cidade e teve percurso de 10 km pelas ruas centrais.', texto: 'A Corrida de São Sebastião, tradicional evento esportivo de Ariquemes, reuniu mais de 3 mil participantes no último domingo. A prova faz parte das comemorações do 45º aniversário da cidade.\n\nO percurso de 10 km passou por pontos históricos do centro da cidade, incluindo a Igreja Matriz de São Sebastião, a Praça da Bíblia e a margem do Rio Machado.\n\nO vencedor da categoria masculina foi Carlos Eduardo Silva, de Ji-Paraná, com tempo de 32 minutos e 15 segundos. Na feminina, Maria Oliveira de Ariquemes cruzou a linha em 38 minutos e 42 segundos.', hashtags: ['#Ariquemes', '#Esportes', '#Corrida', '#AniversarioAriquemes'], legendaSugerida: '🏃 Energia pura! Mais de 3 mil participantes na Corrida de São Sebastião em Ariquemes. São 45 anos da cidade! 🎉' },
+        { id: 10, titulo: 'Secretaria de Saúde alerta sobre surto de dengue em Rolim de Moura', fonte: 'Jornal Extra de Rondônia', cidade: 'Rolim de Moura', categoria: 'Saúde', data: '2026-01-06', status: 'pendente', relevancia: 90, thumbnail: 'saude', resumo: 'Foram registrados 127 casos suspeitos na última semana. Equipes realizam mutirão de eliminação de criadouros.', texto: 'A Secretaria Municipal de Saúde de Rolim de Moura emitiu alerta sobre surto de dengue na cidade. Foram registrados 127 casos suspeitos na última semana, com 23 confirmações laboratoriais.\n\nEquipes de agentes comunitários de saúde realizam um mutirão de eliminação de criadouros do mosquito Aedes aegypti nas regiões mais afetadas: centro, Jardim Amazônia e Cohab.\n\nA população é orientada a vedar caixas d\'água, não deixar água acumulada em pneus, garrafas e calhas, e usar repelente.', hashtags: ['#Dengue', '#Saude', '#RolimDeMoura', '#Alerta'], legendaSugerida: '🚨 Atenção, Rolim de Moura! Alerta de dengue: 127 casos suspeitos. Elimine criadouros e use repelente! 🦟' },
+        { id: 11, titulo: 'Artistas de Ariquemes inauguram exposição coletiva no Centro Cultural Porto Velho', fonte: 'Portal Amazônia', cidade: 'Ariquemes', categoria: 'Cultura', data: '2026-01-05', status: 'aprovada', relevancia: 60, thumbnail: 'cultura', resumo: 'Mostra "Raízes Amazônicas" reúne obras de 15 artistas plásticos de Rondônia até o final de fevereiro.', texto: 'A exposição "Raízes Amazônicas", com obras de 15 artistas plásticos de Rondônia, foi inaugurada no Centro Cultural de Porto Velho. A maioria dos artistas é de Ariquemes.\n\nA mostra reúne pinturas, esculturas, fotografias e instalações que retratam a fauna, a flora e as paisagens da Amazônia rondoniense. A curadoria foi assinada pela artista plástica Ana Lúcia Mendes.\n\nA exposição fica em cartaz até 28 de fevereiro, com entrada gratuita, de terça a domingo, das 9h às 18h.', hashtags: ['#Cultura', '#Arte', '#Ariquemes', '#Exposicao'], legendaSugerida: '🎨 Arte amazônica em destaque! Exposição "Raízes Amazônicas" reúne 15 artistas de Ariquemes no Centro Cultural de Porto Velho. 🖼️' },
+        { id: 12, titulo: 'Detran-RO leiloa mais de 200 veículos apreendidos com lances a partir de R$ 800', fonte: 'Rondônia Notícias', cidade: 'Porto Velho', categoria: 'Segurança', data: '2026-01-04', status: 'rejeitada', relevancia: 40, thumbnail: 'seguranca', resumo: 'Leilão acontece no dia 22 de janeiro de forma online e presencial. Veículos incluem carros, motos e caminhões.', texto: 'O Departamento de Trânsito de Rondônia (Detran-RO) realizará leilão de mais de 200 veículos apreendidos nos próximos dias. Os lances começam a partir de R$ 800 para motos e R$ 1.500 para automóveis.\n\nO leilão acontece no dia 22 de janeiro, de forma online pelo site oficial do Detran e presencial no pátio da instituição, em Porto Velho.\n\nEntre os veículos disponíveis há 120 motocicletas, 65 automóveis, 12 caminhonetes e 8 caminhões. Todos os veículos estão com documentação regularizada.', hashtags: ['#DetranRO', '#Leilao', '#Veiculos', '#PortoVelho'], legendaSugerida: '🚗 Oportunidade! Detran-RO leiloa 200+ veículos com lances a partir de R$ 800. Online e presencial em 22/01.' }
+      ];
+
+      let curadoria_de_noticias_filtroAtivo = '';
+
+      function curadoria_de_noticias_setFiltroStatus(status) {
+        curadoria_de_noticias_filtroAtivo = status;
+        document.querySelectorAll('.curadoria-status-tab').forEach(tab => {
+          const s = tab.dataset.status;
+          if (s === status) {
+            tab.classList.add('border-marca-600', 'text-marca-700');
+            tab.classList.remove('border-transparent', 'text-gray-500');
+          } else {
+            tab.classList.remove('border-marca-600', 'text-marca-700');
+            tab.classList.add('border-transparent', 'text-gray-500');
+          }
+        });
+        curadoria_de_noticias_filtrar();
+      }
+
+      function curadoria_de_noticias_filtrar() {
+        const busca = document.getElementById('curadoria-busca').value.toLowerCase();
+        const cat = document.getElementById('curadoria-categoria').value;
+        const cidade = document.getElementById('curadoria-cidade').value;
+        const periodo = document.getElementById('curadoria-periodo').value;
+        const container = document.getElementById('curadoria-lista');
+        const vazio = document.getElementById('curadoria-vazio');
+        let visiveis = 0;
+        const filtradas = curadoria_de_noticias_noticias.filter(n => {
+          if (curadoria_de_noticias_filtroAtivo && n.status !== curadoria_de_noticias_filtroAtivo) return false;
+          if (busca && !n.titulo.toLowerCase().includes(busca) && !n.fonte.toLowerCase().includes(busca)) return false;
+          if (cat && n.categoria !== cat) return false;
+          if (cidade && n.cidade !== cidade) return false;
+          if (periodo) {
+            const diff = (Date.now() - new Date(n.data).getTime()) / (1000 * 60 * 60 * 24);
+            if (diff > parseInt(periodo)) return false;
+          }
+          return true;
+        });
+        container.innerHTML = filtradas.map(n => curadoria_de_noticias_renderCard(n)).join('');
+        visiveis = filtradas.length;
+        if (visiveis === 0) {
+          container.classList.add('hidden');
+          vazio.classList.remove('hidden');
+        } else {
+          container.classList.remove('hidden');
+          vazio.classList.add('hidden');
+        }
+      }
+
+      function curadoria_de_noticias_renderCard(n) {
+        const cores = { pendente: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200', label: 'Pendente', pulse: true }, aprovada: { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200', label: 'Aprovada', pulse: false }, rejeitada: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200', label: 'Rejeitada', pulse: false }, publicada: { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200', label: 'Publicada', pulse: false } };
+        const c = cores[n.status];
+        const relevanciaCor = n.relevancia >= 80 ? 'text-green-600 bg-green-50' : n.relevancia >= 60 ? 'text-amber-600 bg-amber-50' : 'text-red-600 bg-red-50';
+        const thumbColors = { eco: 'from-green-100 to-emerald-200', saude: 'from-red-100 to-rose-200', economia: 'from-yellow-100 to-amber-200', cultura: 'from-purple-100 to-violet-200', meioambiente: 'from-lime-100 to-green-200', educacao: 'from-sky-100 to-blue-200', infra: 'from-slate-100 to-gray-200', esportes: 'text-orange-600 bg-orange-50', seguranca: 'from-indigo-100 to-blue-200' };
+        const thumbBg = thumbColors[n.thumbnail] || 'from-gray-100 to-gray-200';
+        const catIcon = { 'Política': '🏛️', 'Economia': '📈', 'Saúde': '🏥', 'Educação': '📚', 'Meio Ambiente': '🌿', 'Segurança': '🚔', 'Esportes': '⚽', 'Cultura': '🎭', 'Infraestrutura': '🏗️' };
+        const catIconSvg = n.categoria === 'Meio Ambiente' ? '<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>' : n.categoria === 'Economia' ? '<svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>' : n.categoria === 'Saúde' ? '<svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>' : n.categoria === 'Cultura' ? '<svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a2 2 0 012-2h2a2 2 0 012 2v2m3 0V2a2 2 0 012-2h2a2 2 0 012 2v2m3 0V2a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>' : n.categoria === 'Infraestrutura' ? '<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>' : n.categoria === 'Esportes' ? '<svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>' : '<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9a2 2 0 00-2 2v1"/></svg>';
+        return '<div class="card p-0 cursor-pointer hover:shadow-lg transition-all duration-200 group" onclick="curadoria_de_noticias_abrirDetalhe(' + n.id + ')">' +
+          '<div class="relative h-32 bg-gradient-to-br ' + thumbBg + ' flex items-center justify-center overflow-hidden">' +
+            '<div class="absolute inset-0 opacity-10">' + curadoria_de_noticias_thumbSvg(n.thumbnail) + '</div>' +
+            '<span class="text-4xl relative z-10">' + (catIcon[n.categoria] || '📰') + '</span>' +
+            '<div class="absolute top-2 left-2">' +
+              '<span class="badge text-xs font-medium px-2 py-0.5 rounded-full ' + c.bg + ' ' + c.text + ' ' + c.border + ' border">' + c.label + '</span>' +
+            '</div>' +
+            '<div class="absolute top-2 right-2">' +
+              '<span class="text-xs font-bold px-2 py-0.5 rounded-full ' + relevanciaCor + '">' + n.relevancia + '%</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="p-3">' +
+            '<div class="flex items-center gap-1.5 mb-2">' + catIconSvg + '<span class="text-xs text-gray-600 font-medium">' + n.categoria + '</span></div>' +
+            '<h3 class="font-display font-semibold text-sm text-gray-900 leading-snug mb-2 line-clamp-2 group-hover:text-marca-700 transition-colors">' + n.titulo + '</h3>' +
+            '<div class="flex items-center justify-between text-xs text-gray-400">' +
+              '<span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243A8 8 0 1117.657 16.657z"/><circle cx="12" cy="11" r="1.5" fill="currentColor"/></svg>' + n.cidade + '</span>' +
+              '<span>' + curadoria_de_noticias_formatData(n.data) + '</span>' +
+            '</div>' +
+            '<p class="text-xs text-gray-400 mt-1.5">' + n.fonte + '</p>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function curadoria_de_noticias_thumbSvg(t) {
+        if (t === 'eco') return '<svg class="w-20 h-20 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>';
+        if (t === 'saude') return '<svg class="w-20 h-20 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>';
+        if (t === 'economia') return '<svg class="w-20 h-20 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>';
+        return '<svg class="w-20 h-20 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9a2 2 0 00-2 2v1"/></svg>';
+      }
+
+      function curadoria_de_noticias_formatData(iso) {
+        const d = new Date(iso + 'T00:00:00');
+        return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+      }
+
+      function curadoria_de_noticias_abrirDetalhe(id) {
+        const n = curadoria_de_noticias_noticias.find(x => x.id === id);
+        if (!n) return;
+        const statusCfg = { pendente: { label: 'Pendente', cls: 'bg-amber-100 text-amber-700' }, aprovada: { label: 'Aprovada', cls: 'bg-green-100 text-green-700' }, rejeitada: { label: 'Rejeitada', cls: 'bg-red-100 text-red-700' }, publicada: { label: 'Publicada', cls: 'bg-blue-100 text-blue-700' } };
+        const sc = statusCfg[n.status];
+        const catIcon = { 'Política': '🏛️', 'Economia': '📈', 'Saúde': '🏥', 'Educação': '📚', 'Meio Ambiente': '🌿', 'Segurança': '🚔', 'Esportes': '⚽', 'Cultura': '🎭', 'Infraestrutura': '🏗️' };
+        const html = '<div class="space-y-5">' +
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div>' +
+              '<span class="badge text-xs font-medium px-2.5 py-1 rounded-full ' + sc.cls + ' inline-flex items-center gap-1 mb-2">' + sc.label + '</span>' +
+              '<h2 class="font-display font-bold text-lg text-gray-900 leading-snug">' + n.titulo + '</h2>' +
+            '</div>' +
+            '<span class="text-xs font-bold px-2 py-1 rounded-full ' + (n.relevancia >= 80 ? 'text-green-600 bg-green-50' : n.relevancia >= 60 ? 'text-amber-600 bg-amber-50' : 'text-red-600 bg-red-50') + ' shrink-0">' + n.relevancia + '% relevância</span>' +
+          '</div>' +
+          '<div class="flex flex-wrap gap-2">' +
+            '<span class="badge text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md flex items-center gap-1">' + (catIcon[n.categoria] || '📰') + ' ' + n.categoria + '</span>' +
+            '<span class="badge text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md flex items-center gap-1">📍 ' + n.cidade + '</span>' +
+            '<span class="badge text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md flex items-center gap-1">📅 ' + curadoria_de_noticias_formatData(n.data) + '</span>' +
+            '<span class="badge text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-md flex items-center gap-1">📰 ' + n.fonte + '</span>' +
+          '</div>' +
+          '<div class="border-t border-gray-100 pt-4">' +
+            '<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Texto da Notícia</label>' +
+            '<textarea id="curadoria-texto" rows="6" class="w-full p-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 resize-y">' + n.texto.replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/\n/g, '<br>') + '</textarea>' +
+          '</div>' +
+          '<div class="border-t border-gray-100 pt-4">' +
+            '<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Legenda para Redes Sociais</label>' +
+            '<textarea id="curadoria-legenda" rows="2" class="w-full p-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 resize-y">' + n.legendaSugerida + '</textarea>' +
+          '</div>' +
+          '<div class="border-t border-gray-100 pt-4">' +
+            '<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Hashtags</label>' +
+            '<div class="flex flex-wrap gap-1.5" id="curadoria-hashtags">' +
+              n.hashtags.map(h => '<span class="text-xs bg-marca-50 text-marca-700 px-2 py-1 rounded-md">' + h + '</span>').join('') +
+              '<button onclick="curadoria_de_noticias_adicionarHashtag()" class="text-xs text-gray-400 hover:text-marca-600 px-2 py-1 border border-dashed border-gray-300 rounded-md transition-colors">+ adicionar</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="border-t border-gray-100 pt-4">' +
+            '<label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Plataformas para Publicar</label>' +
+            '<div class="flex flex-wrap gap-2">' +
+              '<label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer"><input type="checkbox" checked class="rounded border-gray-300 text-marca-600 focus:ring-marca-500"><svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</label>' +
+              '<label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer"><input type="checkbox" checked class="rounded border-gray-300 text-marca-600 focus:ring-marca-500"><svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X (Twitter)</label>' +
+              '<label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer"><input type="checkbox" class="rounded border-gray-300 text-marca-600 focus:ring-marca-500"><svg class="w-4 h-4 text-blue-700" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</label>' +
+              '<label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer"><input type="checkbox" class="rounded border-gray-300 text-marca-600 focus:ring-marca-500"><svg class="w-4 h-4 text-pink-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Instagram</label>' +
+              '<label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer"><input type="checkbox" class="rounded border-gray-300 text-marca-600 focus:ring-marca-500"><svg class="w-4 h-4 text-red-600" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> YouTube</label>' +
+            '</div>' +
+          '</div>' +
+          '<div class="border-t border-gray-100 pt-4 flex flex-wrap gap-2">' +
+            (n.status !== 'aprovada' && n.status !== 'publicada' ? '<button onclick="curadoria_de_noticias_aprovar(' + n.id + ')" class="btn bg-green-600 text-white hover:bg-green-700 active:scale-95 transition-all px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Aprovar</button>' : '') +
+            (n.status !== 'rejeitada' && n.status !== 'publicada' ? '<button onclick="curadoria_de_noticias_rejeitar(' + n.id + ')" class="btn bg-white text-red-600 border border-red-200 hover:bg-red-50 active:scale-95 transition-all px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>Rejeitar</button>' : '') +
+            '<button onclick="curadoria_de_noticias_editar(' + n.id + ')" class="btn bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>Editar</button>' +
+            (n.status === 'aprovada' || n.status === 'publicada' ? '<button onclick="curadoria_de_noticias_agendar(' + n.id + ')" class="btn bg-marca-600 text-white hover:bg-marca-700 active:scale-95 transition-all px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Agendar Publicação</button>' : '') +
+            (n.status === 'pendente' ? '<button onclick="curadoria_de_noticias_agendar(' + n.id + ')" class="btn bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 active:scale-95 transition-all px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Enviar para Agendamento</button>' : '') +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Revisar Notícia');
+      }
+
+      function curadoria_de_noticias_aprovar(id) {
+        const n = curadoria_de_noticias_noticias.find(x => x.id === id);
+        if (n) { n.status = 'aprovada'; fecharModal(); curadoria_de_noticias_filtrar(); toast('Notícia aprovada com sucesso!', 'ok'); }
+      }
+
+      function curadoria_de_noticias_rejeitar(id) {
+        const motivo = 'Conteúdo não pertinente';
+        const n = curadoria_de_noticias_noticias.find(x => x.id === id);
+        if (n) {
+          n.status = 'rejeitada';
+          fecharModal();
+          curadoria_de_noticias_filtrar();
+          toast('Notícia rejeitada: ' + motivo, 'info');
+        }
+      }
+
+      function curadoria_de_noticias_editar(id) {
+        fecharModal();
+        toast('Texto carregado para edição no editor', 'info');
+        setTimeout(() => mostrarTela('editor-de-post'), 400);
+      }
+
+      function curadoria_de_noticias_agendar(id) {
+        const n = curadoria_de_noticias_noticias.find(x => x.id === id);
+        if (n) {
+          n.status = n.status === 'aprovada' ? 'publicada' : n.status;
+          fecharModal();
+          curadoria_de_noticias_filtrar();
+          toast('Notícia enviada para agendamento!', 'ok');
+          setTimeout(() => mostrarTela('agendamento'), 600);
+        }
+      }
+
+      function curadoria_de_noticias_adicionarHashtag() {
+        const container = document.getElementById('curadoria-hashtags');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = '#hashtag';
+        input.className = 'text-xs border border-gray-300 rounded-md px-2 py-1 w-24 focus:outline-none focus:ring-1 focus:ring-marca-500';
+        input.onkeydown = function(e) { if (e.key === 'Enter') { const val = input.value.trim(); if (val) { const span = document.createElement('span'); span.className = 'text-xs bg-marca-50 text-marca-700 px-2 py-1 rounded-md'; span.textContent = val; container.insertBefore(span, input); } input.remove(); } };
+        const addBtn = container.querySelector('button');
+        container.insertBefore(input, addBtn);
+        input.focus();
+      }
+
+      function curadoria_de_noticias_limparFiltros() {
+        document.getElementById('curadoria-busca').value = '';
+        document.getElementById('curadoria-categoria').value = '';
+        document.getElementById('curadoria-cidade').value = '';
+        document.getElementById('curadoria-periodo').value = '';
+        curadoria_de_noticias_setFiltroStatus('');
+        curadoria_de_noticias_filtrar();
+      }
+
+      curadoria_de_noticias_filtrar();
+    </script>
+
     <!-- TELAS -->
     </main>
   </div>
