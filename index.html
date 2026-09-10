@@ -3044,6 +3044,385 @@ function analytics_acaoPost(id) {
 analytics_buscar();
 </script>
 
+    <section data-tela="integracoes" class="hidden">
+  <div class="animate-enter">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+      <div>
+        <h1 class="font-display text-2xl font-bold text-gray-900">Integrações</h1>
+        <p class="text-gray-500 mt-1">Gerencie as conexões com redes sociais e serviços de publicação</p>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="integracoes_testarTodas()" class="btn bg-white border border-gray-300 text-gray-700 px-4 py-2.5 rounded-xl font-medium hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Testar Conexões
+        </button>
+        <button onclick="integracoes_salvarConfiguracoes()" class="btn bg-marca-700 text-white px-4 py-2.5 rounded-xl font-medium hover:bg-marca-800 active:scale-95 transition-all flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          Salvar Configurações
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="card p-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 mb-1">Conectadas</p>
+            <p class="font-display text-2xl font-bold text-green-600" id="int-conectadas">5</p>
+          </div>
+          <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 mb-1">Desconectadas</p>
+            <p class="font-display text-2xl font-bold text-gray-400" id="int-desconectadas">1</p>
+          </div>
+          <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 mb-1">Expiradas</p>
+            <p class="font-display text-2xl font-bold text-red-500" id="int-expiradas">1</p>
+          </div>
+          <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 mb-1">Posts hoje</p>
+            <p class="font-display text-2xl font-bold text-marca-700" id="int-posts-hoje">12</p>
+          </div>
+          <div class="w-10 h-10 bg-marca-50 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-marca-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-2.236 9.168-5.584C18.332 2.317 17 4 17 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <div class="relative">
+        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="int-busca" placeholder="Buscar integração..." oninput="integracoes_buscar(this.value)" class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-marca-500 focus:ring-2 focus:ring-marca-200 outline-none transition-all text-sm">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10" id="int-lista"></div>
+
+    <div class="card p-6">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 bg-marca-100 rounded-lg flex items-center justify-center">
+          <svg class="w-4 h-4 text-marca-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h2 class="font-display text-lg font-bold text-gray-900">Configurações Gerais</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Horário padrão de publicação</label>
+          <input type="time" id="int-horario" value="08:00" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-marca-500 focus:ring-2 focus:ring-marca-200 outline-none transition-all text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Fuso horário</label>
+          <select id="int-fuso" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-marca-500 focus:ring-2 focus:ring-marca-200 outline-none transition-all text-sm bg-white">
+            <option value="America/Porto_Velho" selected>Porto Velho (UTC-4) — Rondônia</option>
+            <option value="America/Manaus">Manaus (UTC-4) — Amazonas</option>
+            <option value="America/Sao_Paulo">São Paulo (UTC-3)</option>
+          </select>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Modelo de legenda automática</label>
+          <textarea id="int-modelo-legenda" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-marca-500 focus:ring-2 focus:ring-marca-200 outline-none transition-all text-sm resize-none">📰 {titulo}
+🔗 Fonte: {fonte}
+📍 {local}
+🕐 {data}
+.
+.
+#Rondônia #Notícias #Brasil</textarea>
+          <p class="text-xs text-gray-400 mt-1">Variáveis disponíveis: {titulo}, {fonte}, {local}, {data}, {categoria}</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Frequência de coleta de notícias</label>
+          <select id="int-frequencia" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-marca-500 focus:ring-2 focus:ring-marca-200 outline-none transition-all text-sm bg-white">
+            <option value="15">A cada 15 minutos</option>
+            <option value="30" selected>A cada 30 minutos</option>
+            <option value="60">A cada 1 hora</option>
+            <option value="120">A cada 2 horas</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Notificações de publicação</label>
+          <div class="flex flex-col gap-2 mt-1">
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500">
+              <span class="text-sm text-gray-700">Notificar quando post for publicado</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500">
+              <span class="text-sm text-gray-700">Alertar em caso de falha de publicação</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500">
+              <span class="text-sm text-gray-700">Resumo diário por e-mail</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var integracoes = [
+    { id: 'fb', nome: 'Facebook Page', conta: 'Rondônia em Destaque', handle: '@rondoniaemdestaque', status: 'conectado', cor: '#1877F2', icone: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z', ultimoPost: '2025-01-15T10:30:00', seguidores: 48200 },
+    { id: 'ig', nome: 'Instagram Business', conta: 'Rondônia em Destaque', handle: '@rondoniaemdestaque', status: 'conectado', cor: '#E4405F', icone: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z', ultimoPost: '2025-01-15T09:15:00', seguidores: 31500 },
+    { id: 'x', nome: 'X / Twitter', conta: 'Rondônia em Destaque', handle: '@rondoniaemdestaque', status: 'expirado', cor: '#000000', icone: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z', ultimoPost: '2025-01-12T14:20:00', seguidores: 12800 },
+    { id: 'wa', nome: 'WhatsApp Business API', conta: 'Rondônia Notícias', handle: '+55 69 99999-0001', status: 'conectado', cor: '#25D366', icone: 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z', ultimoPost: '2025-01-15T11:45:00', seguidores: 89400 },
+    { id: 'tg', nome: 'Telegram', conta: 'Canal Rondônia Notícias', handle: '@rondonianoticias', status: 'conectado', cor: '#0088cc', icone: 'M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z', ultimoPost: '2025-01-15T08:00:00', seguidores: 22100 },
+    { id: 'gn', nome: 'Google Notícias', conta: 'Rondônia em Destaque', handle: 'Publicação automática', status: 'conectado', cor: '#4285F4', icone: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm7.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H9v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z', ultimoPost: '2025-01-15T07:00:00', seguidores: 15600 }
+  ];
+
+  function renderLista(lista) {
+    var container = document.getElementById('int-lista');
+    if (!lista.length) {
+      container.innerHTML = '<div class="lg:col-span-2 text-center py-16"><svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p class="text-gray-400 text-sm">Nenhuma integração encontrada</p></div>';
+      return;
+    }
+    container.innerHTML = lista.map(function(int) {
+      var statusCfg = int.status === 'conectado' ? { badge: 'bg-green-100 text-green-700', label: 'Conectado', dot: 'bg-green-500' } : int.status === 'expirado' ? { badge: 'bg-red-100 text-red-700', label: 'Expirado', dot: 'bg-red-500' } : { badge: 'bg-gray-100 text-gray-500', label: 'Desconectado', dot: 'bg-gray-400' };
+      var ultimo = int.ultimoPost ? new Date(int.ultimoPost) : null;
+      var ultimoStr = ultimo ? 'Último post: ' + ultimo.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Sem publicações';
+      return '<div class="card p-5 hover:shadow-lg transition-all cursor-pointer group" onclick="integracoes_detalhe(\'' + int.id + '\')">' +
+        '<div class="flex items-start justify-between mb-4">' +
+          '<div class="flex items-center gap-3.5">' +
+            '<div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color:' + int.cor + '15">' +
+              '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style="color:' + int.cor + '"><path d="' + int.icone + '"/></svg>' +
+            '</div>' +
+            '<div>' +
+              '<h3 class="font-display font-bold text-gray-900 group-hover:text-marca-700 transition-colors">' + int.nome + '</h3>' +
+              '<p class="text-sm text-gray-500">' + int.conta + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<span class="badge ' + statusCfg.badge + ' px-2.5 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5">' +
+            '<span class="w-1.5 h-1.5 rounded-full ' + statusCfg.dot + '"></span>' + statusCfg.label +
+          '</span>' +
+        '</div>' +
+        '<div class="flex items-center justify-between text-sm">' +
+          '<div class="text-gray-500">' +
+            '<span class="font-mono text-xs">' + int.handle + '</span>' +
+            '<p class="text-xs mt-1">' + ultimoStr + '</p>' +
+          '</div>' +
+          '<div class="text-right">' +
+            '<p class="text-xs text-gray-400">' + int.seguidores.toLocaleString('pt-BR') + ' seguidores</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex gap-2 mt-4 pt-4 border-t border-gray-100">' +
+          (int.status === 'conectado'
+            ? '<button onclick="event.stopPropagation(); integracoes_toggle(\'' + int.id + '\')" class="flex-1 btn bg-white border border-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-50 hover:border-red-200 hover:text-red-600 active:scale-95 transition-all">Desconectar</button>' +
+              '<button onclick="event.stopPropagation(); integracoes_verHistorico(\'' + int.id + '\')" class="flex-1 btn bg-white border border-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium hover:bg-marca-50 hover:border-marca-200 hover:text-marca-700 active:scale-95 transition-all">Histórico</button>'
+            : int.status === 'expirado'
+              ? '<button onclick="event.stopPropagation(); integracoes_conectar(\'' + int.id + '\')" class="flex-1 btn bg-marca-700 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-marca-800 active:scale-95 transition-all">Reconectar</button>' +
+                '<button onclick="event.stopPropagation(); integracoes_verHistorico(\'' + int.id + '\')" class="flex-1 btn bg-white border border-gray-200 text-gray-600 px-3 py-2 rounded-lg text-sm font-medium hover:bg-marca-50 hover:border-marca-200 hover:text-marca-700 active:scale-95 transition-all">Histórico</button>'
+              : '<button onclick="event.stopPropagation(); integracoes_conectar(\'' + int.id + '\')" class="flex-1 btn bg-marca-700 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-marca-800 active:scale-95 transition-all">Conectar</button>' +
+                '<button onclick="event.stopPropagation(); integracoes_verHistorico(\'' + int.id + '\')" class="flex-1 btn bg-white border border-gray-200 text-gray-400 px-3 py-2 rounded-lg text-sm font-medium cursor-not-allowed">Indisponível</button>'
+          ) +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  window.integracoes_buscar = function(termo) {
+    var t = termo.toLowerCase().trim();
+    if (!t) { renderLista(integracoes); return; }
+    var filtrados = integracoes.filter(function(i) {
+      return i.nome.toLowerCase().indexOf(t) > -1 || i.conta.toLowerCase().indexOf(t) > -1 || i.handle.toLowerCase().indexOf(t) > -1 || i.status.indexOf(t) > -1;
+    });
+    renderLista(filtrados);
+  };
+
+  window.integracoes_conectar = function(id) {
+    var int = integracoes.find(function(i) { return i.id === id; });
+    if (!int) return;
+    abrirModal(
+      '<div class="text-center py-4">' +
+        '<div class="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" style="background-color:' + int.cor + '15">' +
+          '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" style="color:' + int.cor + '"><path d="' + int.icone + '"/></svg>' +
+        '</div>' +
+        '<h3 class="font-display text-lg font-bold text-gray-900 mb-1">Conectar ' + int.nome + '</h3>' +
+        '<p class="text-sm text-gray-500 mb-6">Você será redirecionado para a página de autenticação do ' + int.nome + ' para autorizar o acesso.</p>' +
+        '<div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6 text-left">' +
+          '<p class="text-sm text-yellow-800"><strong>Permissões solicitadas:</strong></p>' +
+          '<ul class="text-sm text-yellow-700 mt-1 list-disc list-inside">' +
+            '<li>Publicar conteúdo em seu nome</li>' +
+            '<li>Ler métricas de engajamento</li>' +
+            '<li>Acessar lista de seguidores (apenas contagem)</li>' +
+          '</ul>' +
+        '</div>' +
+        '<div class="flex gap-3 justify-center">' +
+          '<button onclick="integracoes_confirmarConexao(\'' + int.id + '\')" class="btn px-6 py-2.5 rounded-xl bg-marca-700 text-white font-medium hover:bg-marca-800 active:scale-95 transition-all">Autorizar e Conectar</button>' +
+          '<button onclick="fecharModal()" class="btn px-6 py-2.5 rounded-xl bg-gray-100 text-gray-600 font-medium hover:bg-gray-200 active:scale-95 transition-all">Cancelar</button>' +
+        '</div>' +
+      '</div>',
+      'Conectar ' + int.nome
+    );
+  };
+
+  window.integracoes_confirmarConexao = function(id) {
+    var int = integracoes.find(function(i) { return i.id === id; });
+    if (!int) return;
+    int.status = 'conectado';
+    int.ultimoPost = new Date().toISOString();
+    fecharModal();
+    renderLista(integracoes);
+    atualizarContadores();
+    toast(int.nome + ' conectado com sucesso!', 'ok');
+  };
+
+  window.integracoes_toggle = function(id) {
+    var int = integracoes.find(function(i) { return i.id === id; });
+    if (!int) return;
+    abrirModal(
+      '<div class="text-center py-4">' +
+        '<div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-red-50 flex items-center justify-center">' +
+          '<svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.774-.833-1.732-.833-2.5 0L4.268 18.5c-.77.833.192 2.5 1.732 2.5z"/></svg>' +
+        '</div>' +
+        '<h3 class="font-display text-lg font-bold text-gray-900 mb-1">Desconectar ' + int.nome + '?</h3>' +
+        '<p class="text-sm text-gray-500 mb-6">A publicação automática em <strong>' + int.conta + '</strong> será interrompida. Posts agendados não serão enviados.</p>' +
+        '<div class="flex gap-3 justify-center">' +
+          '<button onclick="integracoes_confirmarDesconexao(\'' + int.id + '\')" class="btn px-6 py-2.5 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700 active:scale-95 transition-all">Sim, Desconectar</button>' +
+          '<button onclick="fecharModal()" class="btn px-6 py-2.5 rounded-xl bg-gray-100 text-gray-600 font-medium hover:bg-gray-200 active:scale-95 transition-all">Cancelar</button>' +
+        '</div>' +
+      '</div>',
+      'Desconectar'
+    );
+  };
+
+  window.integracoes_confirmarDesconexao = function(id) {
+    var int = integracoes.find(function(i) { return i.id === id; });
+    if (!int) return;
+    int.status = 'desconectado';
+    fecharModal();
+    renderLista(integracoes);
+    atualizarContadores();
+    toast(int.nome + ' desconectado.', 'info');
+  };
+
+  window.integracoes_detalhe = function(id) {
+    var int = integracoes.find(function(i) { return i.id === id; });
+    if (!int) return;
+    var statusCfg = int.status === 'conectado' ? { badge: 'bg-green-100 text-green-700', label: 'Conectado' } : int.status === 'expirado' ? { badge: 'bg-red-100 text-red-700', label: 'Expirado' } : { badge: 'bg-gray-100 text-gray-500', label: 'Desconectado' };
+    var historico = [];
+    for (var d = 0; d < 7; d++) {
+      var dt = new Date(); dt.setDate(dt.getDate() - d);
+      var posts = Math.floor(Math.random() * 8) + 1;
+      historico.push({ data: dt, posts: posts });
+    }
+    var maxPosts = Math.max.apply(null, historico.map(function(h) { return h.posts; }));
+    var bars = historico.map(function(h) {
+      var pct = Math.round((h.posts / maxPosts) * 100);
+      var dia = h.data.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit' });
+      return '<div class="flex flex-col items-center gap-1.5 flex-1">' +
+        '<span class="text-xs font-medium text-gray-600">' + h.posts + '</span>' +
+        '<div class="w-full rounded-t-md transition-all" style="height:' + Math.max(pct, 8) + '%;background-color:' + int.cor + ';min-height:16px;"></div>' +
+        '<span class="text-[10px] text-gray-400 capitalize">' + dia + '</span>' +
+      '</div>';
+    }).join('');
+
+    abrirModal(
+      '<div class="animate-enter">' +
+        '<div class="flex items-center gap-4 mb-6">' +
+          '<div class="w-14 h-14 rounded-2xl flex items-center justify-center" style="background-color:' + int.cor + '15">' +
+            '<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" style="color:' + int.cor + '"><path d="' + int.icone + '"/></svg>' +
+          '</div>' +
+          '<div>' +
+            '<h3 class="font-display text-xl font-bold text-gray-900">' + int.nome + '</h3>' +
+            '<p class="text-sm text-gray-500">' + int.conta + ' · ' + int.handle + '</p>' +
+            '<span class="badge ' + statusCfg.badge + ' px-2 py-0.5 rounded-md text-xs font-medium mt-1 inline-block">' + statusCfg.label + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="grid grid-cols-3 gap-3 mb-6">' +
+          '<div class="bg-gray-50 rounded-xl p-3 text-center">' +
+            '<p class="font-display text-xl font-bold text-gray-900">' + int.seguidores.toLocaleString('pt-BR') + '</p>' +
+            '<p class="text-xs text-gray-500">Seguidores</p>' +
+          '</div>' +
+          '<div class="bg-gray-50 rounded-xl p-3 text-center">' +
+            '<p class="font-display text-xl font-bold text-gray-900">' + Math.floor(Math.random() * 500 + 50) + '</p>' +
+            '<p class="text-xs text-gray-500">Posts este mês</p>' +
+          '</div>' +
+          '<div class="bg-gray-50 rounded-xl p-3 text-center">' +
+            '<p class="font-display text-xl font-bold text-gray-900">' + (Math.random() * 5 + 1).toFixed(1) + '%</p>' +
+            '<p class="text-xs text-gray-500">Engajamento</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="mb-4">' +
+          '<h4 class="text-sm font-medium text-gray-700 mb-3">Posts nos últimos 7 dias</h4>' +
+          '<div class="flex items-end gap-2 h-28 bg-gray-50 rounded-xl p-3">' + bars + '</div>' +
+        '</div>' +
+        '<div class="flex gap-2">' +
+          (int.status === 'conectado'
+            ? '<button onclick="integracoes_toggle(\'' + int.id + '\'); fecharModal();" class="flex-1 btn bg-red-50 border border-red-200 text-red-600 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-red-100 active:scale-95 transition-all">Desconectar</button>' +
+              '<button onclick="integracoes_publicarTeste(\'' + int.id + '\'); fecharModal();" class="flex-1 btn bg-marca-700 text-white px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-marca-800 active:scale-95 transition-all">Publicar Teste</button>'
+            : '<button onclick="integracoes_conectar(\'' + int.id + '\'); fecharModal();" class="flex-1 btn bg-marca-700 text-white px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-marca-800 active:scale-95 transition-all">Conectar</button>' +
+              '<button onclick="fecharModal()" class="flex-1 btn bg-gray-100 text-gray-600 px-3 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 active:scale-95 transition-all">Fechar</button>'
+          ) +
+        '</div>' +
+      '</div>',
+      int.nome
+    );
+  };
+
+  window.integracoes_verHistorico = function(id) {
+    integracoes_detalhe(id);
+  };
+
+  window.integracoes_publicarTeste = function(id) {
+    var int = integracoes.find(function(i) { return i.id === id; });
+    if (!int) return;
+    toast('Post de teste enviado para ' + int.conta + '!', 'ok');
+  };
+
+  window.integracoes_testarTodas = function() {
+    toast('Testando conexões...', 'info');
+    setTimeout(function() {
+      var conectados = integracoes.filter(function(i) { return i.status === 'conectado'; }).length;
+      toast(conectados + ' de ' + integracoes.length + ' conexões ativas. Teste concluído!', conectados === integracoes.length ? 'ok' : 'info');
+    }, 1500);
+  };
+
+  window.integracoes_salvarConfiguracoes = function() {
+    var horario = document.getElementById('int-horario').value;
+    var fuso = document.getElementById('int-fuso').value;
+    var legenda = document.getElementById('int-modelo-legenda').value;
+    var freq = document.getElementById('int-frequencia').value;
+    toast('Configurações salvas com sucesso!', 'ok');
+  };
+
+  function atualizarContadores() {
+    var conectadas = integracoes.filter(function(i) { return i.status === 'conectado'; }).length;
+    var desconectadas = integracoes.filter(function(i) { return i.status === 'desconectado'; }).length;
+    var expiradas = integracoes.filter(function(i) { return i.status === 'expirado'; }).length;
+    var elC = document.getElementById('int-conectadas');
+    var elD = document.getElementById('int-desconectadas');
+    var elE = document.getElementById('int-expiradas');
+    if (elC) elC.textContent = conectadas;
+    if (elD) elD.textContent = desconectadas;
+    if (elE) elE.textContent = expiradas;
+  }
+
+  renderLista(integracoes);
+})();
+</script>
+
     <!-- TELAS -->
     </main>
   </div>
